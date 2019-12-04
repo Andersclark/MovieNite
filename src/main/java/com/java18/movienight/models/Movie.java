@@ -1,11 +1,16 @@
 package com.java18.movienight.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Movie {
 
     public String title;
@@ -35,35 +40,6 @@ public class Movie {
     public String website;
     public String response;
 
-    public Movie() {}
-
-    public Movie(String title, String year, String rated, String released, String runtime, String genre, String director, String writer, String actors, String plot, String language, String country, String awards, String poster, List<Rating> ratings, String metascore, String imdbRating, String imdbVotes, String imdbId, String type, String dvd, String boxoffice, String production, String website, String response) {
-        this.title = title;
-        this.year = year;
-        this.rated = rated;
-        this.released = released;
-        this.runtime = runtime;
-        this.genre = genre;
-        this.director = director;
-        this.writer = writer;
-        this.actors = actors;
-        this.plot = plot;
-        this.language = language;
-        this.country = country;
-        this.awards = awards;
-        this.poster = poster;
-        this.ratings = ratings;
-        this.metascore = metascore;
-        this.imdbRating = imdbRating;
-        this.imdbVotes = imdbVotes;
-        this.imdbId = imdbId;
-        this.type = type;
-        this.dvd = dvd;
-        this.boxoffice = boxoffice;
-        this.production = production;
-        this.website = website;
-        this.response = response;
-    }
 }
 
 

@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface MovieRepository extends MongoRepository<Movie, String> {
+public interface AtlasMovieRepository extends MongoRepository<Movie, String> {
     List<Movie> findByTitleContaining(String title);
-    Optional<Movie> findById(String id);
+    Optional<Movie> findByImdbId(String imdbId);
 }

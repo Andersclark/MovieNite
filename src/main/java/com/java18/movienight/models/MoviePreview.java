@@ -1,27 +1,25 @@
 package com.java18.movienight.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Document
 public class MoviePreview {
 
     public String title;
     public String year;
-    @Id public String imdbId;
+    @Id
+    public String imdbId;
     public String type;
     public String poster;
 
-    public MoviePreview() {}
-
-    public MoviePreview(String title, String year, String imdbId, String type, String poster) {
-        this.title = title;
-        this.year = year;
-        this.imdbId = imdbId;
-        this.type = type;
-        this.poster = poster;
-    }
 }
 
 /*  ACTUAL OMDB-RESPONSE:
