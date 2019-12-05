@@ -17,8 +17,8 @@ import java.util.*;
 public class OmdbService {
     private  static final String OMDB_URL = "https://www.omdbapi.com/?apikey=a99e9d48";
 
-    public Optional findByImdbId(String id) {
-        String uri = (OMDB_URL + "&i=" + id);
+    public Optional findByImdbId(String imdbId) {
+        String uri = (OMDB_URL + "&i=" + imdbId);
         RestTemplate restTemplate = new RestTemplate();
         try {
             return Optional.ofNullable(restTemplate.getForObject(uri, Movie.class));

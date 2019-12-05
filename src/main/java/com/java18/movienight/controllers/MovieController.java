@@ -24,7 +24,7 @@ public class MovieController {
     @Autowired
     OmdbService omdbService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{imdbId}")
     private ResponseEntity findByImdbId(@PathVariable String imdbId) {
         Optional<Movie> internalResult = atlasService.findById(imdbId);
         if(internalResult.isPresent()){
