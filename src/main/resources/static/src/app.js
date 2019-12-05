@@ -1,8 +1,14 @@
+import navBar from './components/navBar.js'
+
 export default {
+
+  components: {
+    navBar
+  },
+
   template: `
     <div id="app">
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
+      <navBar />
       <router-view />
     </div>
   `
