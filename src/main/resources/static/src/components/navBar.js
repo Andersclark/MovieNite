@@ -1,7 +1,7 @@
 export default {
   template: `
   <div>
-  <div class="hamburger">
+  <div @click="toggleSideBar"class="hamburger">
       <i class="fas fa-bars"></i>
   </div>
   <div class="container">
@@ -13,4 +13,10 @@ export default {
     </div>
   </div>
   </div>`,
+ 
+ methods: {
+  toggleSideBar() {
+    this.$store.commit('toggleSideBar')
+  }
+}
 };
