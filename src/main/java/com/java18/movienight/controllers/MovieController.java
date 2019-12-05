@@ -2,6 +2,7 @@ package com.java18.movienight.controllers;
 
 import com.java18.movienight.models.Movie;
 import com.java18.movienight.models.MoviePreview;
+import com.java18.movienight.models.OmdbSearchResult;
 import com.java18.movienight.services.AtlasService;
 import com.java18.movienight.services.OmdbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +25,22 @@ public class MovieController {
     OmdbService omdbService;
 
     @GetMapping("/{id}")
-    private ResponseEntity getById(@PathVariable String id) {
-        //Optional<Movie> internalResult = atlasService.findById(id);  //TODO: Use service to get data from both OMDB and AtlasCloud
-       // if(internalResult.isPresent()){
-       //     return new ResponseEntity<>(internalResult.get(), HttpStatus.OK);
-        //} else {
-            Movie omdbResult = omdbService.findById(id);
-            return new ResponseEntity(HttpStatus.OK);
-        //omdbResult.map(movie -> (new ResponseEntity<>(movie, HttpStatus.OK))).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        //}
+    private ResponseEntity findByImdbId(@PathVariable String imdbId) {
+        Optional<Movie> internalResult = atlasService.findById(imdbId);
+        if(internalResult.isPresent()){
+             return new ResponseEntity<>(internalResult.get(), HttpStatus.OK);
+        } else {
+            Optional<Movie> omdbResult = omdbService.findByImdbId(imdbId);
+            return omdbResult.map(movie -> (new ResponseEntity<>(movie, HttpStatus.OK))).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }
     }
 
-    @GetMapping("/find/")
-    private ResponseEntity findByTitle(@RequestParam String title) {
-        List<MoviePreview> result = new ArrayList(atlasService.findByTitleContaining(title)); //TODO: Use service to get data from both OMDB and AtlasCloud (2)
-        if(result.isEmpty()){
+    @GetMapping("/search")
+    private ResponseEntity searchByTitleContaining(@RequestParam String title) {
+        OmdbSearchResult results = omdbService.searchByTitleContaining(title);
+        if(results.getMovies().isEmpty()){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else { return new ResponseEntity<>(result, HttpStatus.OK); }
+        } else { return new ResponseEntity<>(results.getMovies(), HttpStatus.OK); }
     }
 
 

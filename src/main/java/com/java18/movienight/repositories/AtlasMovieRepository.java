@@ -1,7 +1,6 @@
 package com.java18.movienight.repositories;
 
 import com.java18.movienight.models.Movie;
-import com.java18.movienight.models.MoviePreview;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

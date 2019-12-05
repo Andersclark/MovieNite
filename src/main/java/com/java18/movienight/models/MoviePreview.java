@@ -1,5 +1,6 @@
 package com.java18.movienight.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,13 +16,13 @@ import java.io.Serializable;
 @Document
 public class MoviePreview implements Serializable {
 
-    public String title;
-    public String year;
     @Id
-    public String imdbId;
-    public String type;
-    public String poster;
-
+    public String _id;
+    @JsonProperty("Title") public String title;
+    @JsonProperty("Year") public String year;
+    @JsonProperty("imdbID") public String imdbId;
+    @JsonProperty("Type") public String type;
+    @JsonProperty("Poster") public String poster;
 }
 
 /*  ACTUAL OMDB-RESPONSE:
