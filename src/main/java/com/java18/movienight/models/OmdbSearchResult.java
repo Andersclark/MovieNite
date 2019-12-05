@@ -6,13 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Data
 @AllArgsConstructor
-public class OmdbSearchResult {
+public class OmdbSearchResult implements Serializable {
 
     @JsonProperty("Search")
     private ArrayList<MoviePreview> movies;

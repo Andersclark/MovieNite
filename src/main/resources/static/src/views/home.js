@@ -1,4 +1,11 @@
+import searchField from "../components/searchField.js";
+
 export default {
+
+  components: {
+    searchField,
+  },
+
   template: `
     <div id="home" class="container">
       <div class="row">
@@ -6,6 +13,7 @@ export default {
           <h4>MovieNite, Yeeeeeeeeaa!</h4>
           <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some
             content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
+            <searchField/>
         </div>
       </div>
     </div>
