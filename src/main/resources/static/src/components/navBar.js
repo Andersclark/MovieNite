@@ -1,7 +1,7 @@
 export default {
   template: `
   <div>
-  <div @click="toggleSideBar"class="hamburger">
+  <div @click="toggleSideBar" class="hamburger">
       <i class="fas fa-bars"></i>
   </div>
   <div class="container">

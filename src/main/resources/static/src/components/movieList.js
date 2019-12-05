@@ -1,14 +1,17 @@
-import movieCard from './movieCard.js'
+import movieCard from './movieCard.js';
+import searchField from './searchField.js';
 
-export default{
-  
-  components: {
-    movieCard
-  },
+export default {
+	components: {
+		searchField,
+		movieCard,
+	},
 
-  template: `
-  <div class="movie-list">
-    <movieCard :moviePoster="movie.poster" :movieTitle="movie.title" v-for="movie in $store.state.movies" />
-  </div>`
-
-}
+	template: `
+  <div>
+    <searchField/>
+    <div class="movie-list">
+      <movieCard :key="movie.imdbID" :moviePoster="movie.Poster" :movieTitle="movie.Title" v-for="movie in $store.state.searchResults" />
+    </div>
+  </div>`,
+};
