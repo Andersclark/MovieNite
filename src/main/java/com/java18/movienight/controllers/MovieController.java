@@ -36,7 +36,7 @@ public class MovieController {
 
     @GetMapping("/")
     private ResponseEntity findByTitle(@RequestParam String title) {
-        List<MoviePreview> result = new ArrayList<>(atlasService.findByTitleContaining(title)); //TODO: Use service to get data from both OMDB and AtlasCloud (2)
+        List<MoviePreview> result = new ArrayList(atlasService.findByTitleContaining(title)); //TODO: Use service to get data from both OMDB and AtlasCloud (2)
         if(result.isEmpty()){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else { return new ResponseEntity<>(result, HttpStatus.OK); }
