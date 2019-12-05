@@ -1,13 +1,13 @@
-import movieCard from '../components/movieCard.js'
+import movieList from '../components/movieList.js'
 
 export default {
   components: {
-    movieCard,
+    movieList,
   },
 
   template: `
-    <div id="home" class="container">
-      <movieCard/>
+    <div>
+    <movieList />
     </div>
   `
 }
