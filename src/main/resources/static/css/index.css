@@ -17,6 +17,21 @@
   flex-direction: column;
 }
 
+.movie-card{
+  width: 33%;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.movie-poster{
+  height: 100%; 
+  width: 100%
+}
+
 @media screen and (max-width: 750px) {
   .header{
     display: none;
