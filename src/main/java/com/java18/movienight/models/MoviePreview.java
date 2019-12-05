@@ -6,12 +6,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
-public class MoviePreview {
+public class MoviePreview implements Serializable {
 
     public String title;
     public String year;

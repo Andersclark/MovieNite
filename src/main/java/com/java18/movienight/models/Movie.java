@@ -1,45 +1,73 @@
 package com.java18.movienight.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.core.serializer.Serializer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Movie {
+public class Movie implements Serializable {
 
+    public String _id;
+    @JsonProperty("Title")
     public String title;
+    @JsonProperty("Year")
     public String year;
+    @JsonProperty("Rated")
     public String rated;
+    @JsonProperty("Released")
     public String released;
+    @JsonProperty("Runtime")
     public String runtime;
+    @JsonProperty("Genre")
     public String genre;
+    @JsonProperty("Director")
     public String director;
+    @JsonProperty("Writer")
     public String writer;
+    @JsonProperty("Actors")
     public String actors;
+    @JsonProperty("Plot")
     public String plot;
+    @JsonProperty("Language")
     public String language;
+    @JsonProperty("Country")
     public String country;
+    @JsonProperty("Awards")
     public String awards;
+    @JsonProperty("Poster")
     public String poster;
+    @JsonProperty("Ratings")
     public List<Rating> ratings;
+    @JsonProperty("Metascore")
     public String metascore;
+    @JsonProperty("imdbRating")
     public String imdbRating;
+    @JsonProperty("imdbVotes")
     public String imdbVotes;
-    @Id
+    @JsonProperty("imdbID")
     public String imdbId;
+    @JsonProperty("Type")
     public String type;
+    @JsonProperty("DVD")
     public String dvd;
+    @JsonProperty("BoxOffice")
     public String boxoffice;
+    @JsonProperty("Production")
     public String production;
+    @JsonProperty("Website")
     public String website;
+    @JsonProperty("Response")
     public String response;
-
 }
 
 

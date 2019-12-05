@@ -25,16 +25,17 @@ public class MovieController {
 
     @GetMapping("/{id}")
     private ResponseEntity getById(@PathVariable String id) {
-        Optional<Movie> internalResult = atlasService.findById(id);  //TODO: Use service to get data from both OMDB and AtlasCloud
-        if(internalResult.isPresent()){
-            return new ResponseEntity<>(internalResult.get(), HttpStatus.OK);
-        } else {
-            Optional<Movie> omdbResult = omdbService.findById(id);
-            return omdbResult.map(movie -> (new ResponseEntity<>(movie, HttpStatus.OK))).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        }
+        //Optional<Movie> internalResult = atlasService.findById(id);  //TODO: Use service to get data from both OMDB and AtlasCloud
+       // if(internalResult.isPresent()){
+       //     return new ResponseEntity<>(internalResult.get(), HttpStatus.OK);
+        //} else {
+            Movie omdbResult = omdbService.findById(id);
+            return new ResponseEntity(HttpStatus.OK);
+        //omdbResult.map(movie -> (new ResponseEntity<>(movie, HttpStatus.OK))).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        //}
     }
 
-    @GetMapping("/")
+    @GetMapping("/find/")
     private ResponseEntity findByTitle(@RequestParam String title) {
         List<MoviePreview> result = new ArrayList(atlasService.findByTitleContaining(title)); //TODO: Use service to get data from both OMDB and AtlasCloud (2)
         if(result.isEmpty()){
