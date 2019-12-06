@@ -5,7 +5,7 @@ export default {
         <div class="container">
             <div class="row">
                 <div class="one-half column">
-                     <h3>MovieKnight API documentation</h3>
+                     <h3>API documentation</h3>
                       <p>MovieKnight is both a user-friendly webapp for booking private viewings with friends at your home and an API serving data on movies.</p>
                       <p>Our database is in itself a cache of data our users request, which are then collected from the <a href="">Open Movie Database, OMDB</a>, which is pretty slow.</p>
                 </div>
@@ -24,6 +24,8 @@ export default {
                     </div>
                 </div>
             </div>
+            <div class="container">
+            
              <div class="row">
                 <div class="half column">
                     <h3>Examples</h3>
@@ -74,6 +76,8 @@ export default {
                     </code></pre>
                  </div>
             </div>
+            </div>
+           <div class="container">
             <div class="row">
                 <div class="one-half column">
                     <h4>Object: SearchResult</h4>
@@ -99,6 +103,7 @@ export default {
                      </code></pre>
                 </div>
             </div>
+           </div>
         </div>
     </div>
   `,
