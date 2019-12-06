@@ -1,15 +1,12 @@
 package com.java18.movienight.services;
 
 import com.java18.movienight.models.Movie;
-import com.java18.movienight.models.MoviePreview;
-import com.java18.movienight.models.OmdbSearchResult;
+import com.java18.movienight.models.SearchResult;
 import lombok.NoArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.naming.directory.SearchResult;
 import java.util.*;
 
 @NoArgsConstructor
@@ -28,18 +25,16 @@ public class OmdbService {
         }
     }
 
-    public OmdbSearchResult searchByTitleContaining(String title){
+    public SearchResult searchByTitleContaining(String title){
         String uri = (OMDB_URL +  "&s=" + title);
-        System.out.println("URI: " + uri);
-        OmdbSearchResult results;
+        SearchResult results;
         try {
             RestTemplate temp = new RestTemplate();
-            results = temp.getForObject(uri, OmdbSearchResult.class);
-            System.out.println(results.getMovies().toString());
+            results = temp.getForObject(uri, SearchResult.class);
             return results;
         } catch (Exception e){
             e.printStackTrace();
-            results = new OmdbSearchResult();
+            results = new SearchResult();
         } return results;
     }
 }

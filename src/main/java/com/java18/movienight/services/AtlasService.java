@@ -1,8 +1,9 @@
 package com.java18.movienight.services;
 
 import com.java18.movienight.models.Movie;
-import com.java18.movienight.models.MoviePreview;
+import com.java18.movienight.models.SearchResult;
 import com.java18.movienight.repositories.AtlasMovieRepository;
+import com.java18.movienight.repositories.SearchResultRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +14,29 @@ import java.util.Optional;
 public class AtlasService {
 
     @Autowired
-    AtlasMovieRepository collection;
+    AtlasMovieRepository movieCollection;
+    @Autowired
+    SearchResultRepo searchCollection;
 
     public AtlasService() {  }
 
     public Optional<Movie> findById(String id){
-        return collection.findById(id);
+        return movieCollection.findById(id);
     }
     public List<Movie> findByTitleContaining(String title){
-        return collection.findByTitleContaining(title);
+        return movieCollection.findByTitleContaining(title);
+    }
+    public void saveMovie(Movie movie){
+        movieCollection.save(movie);
+    }
+    public SearchResult findBySearchString(String searchString){
+        return searchCollection.findBySearchString(searchString);
+    }
+    public Optional findSearchById(String id){
+        return searchCollection.findById(id);
+    }
+    public void saveSearchResults(SearchResult searchResults){
+        searchCollection.save(searchResults);
     }
 
 }

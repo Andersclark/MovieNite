@@ -5,28 +5,32 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Data
 @AllArgsConstructor
-public class OmdbSearchResult implements Serializable {
+@NoArgsConstructor
+public class SearchResult implements Serializable {
+
+    @Id
+    ObjectId _id;
+    public String searchString;
 
     @JsonProperty("Search")
     private ArrayList<MoviePreview> movies;
-
-    public OmdbSearchResult() {
-        movies = new ArrayList<>();
-    }
 
     public ArrayList<MoviePreview> getMovies() {
         return movies;
     }
 
-    public void setMovies(ArrayList<MoviePreview> movies) {
-        this.movies = movies;
+    public void setSearchString(String searchString) {
+        var finalString = searchString.toLowerCase();
+        finalString = finalString.trim();
+        this.searchString = finalString;
     }
 }
