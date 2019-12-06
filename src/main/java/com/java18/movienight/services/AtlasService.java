@@ -5,6 +5,7 @@ import com.java18.movienight.models.SearchResult;
 import com.java18.movienight.repositories.AtlasMovieRepository;
 import com.java18.movienight.repositories.SearchResultRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.util.BsonUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class AtlasService {
     }
     public SearchResult findBySearchString(String searchString){
         return searchCollection.findBySearchString(searchString);
+
     }
     public Optional findSearchById(String id){
         return searchCollection.findById(id);

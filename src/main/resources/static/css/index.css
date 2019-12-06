@@ -1,3 +1,13 @@
+.nightcode{
+	color: #0FA0CE;
+	background-color:#333333;
+	border: none;
+}
+.nightpre {
+	border-radius: 10px;
+	background-color:#333333;
+}
+
 .backdrop{
   position: absolute;
   top: 0;
@@ -15,6 +25,7 @@
 	justify-content: center;
 	text-align: center;
 }
+
 .hamburger {
 	display: none;
 }
@@ -75,4 +86,5 @@
   .movie-card{
     width: 80%;
   }
+
 }
