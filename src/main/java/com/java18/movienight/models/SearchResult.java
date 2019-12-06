@@ -10,11 +10,11 @@ import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class SearchResult implements Serializable {
 
     @Id
@@ -24,15 +24,13 @@ public class SearchResult implements Serializable {
     @JsonProperty("Search")
     private ArrayList<MoviePreview> movies;
 
-    public SearchResult() {
-        movies = new ArrayList<>();
-    }
-
     public ArrayList<MoviePreview> getMovies() {
         return movies;
     }
 
-    public void setMovies(ArrayList<MoviePreview> movies) {
-        this.movies = movies;
+    public void setSearchString(String searchString) {
+        var finalString = searchString.toLowerCase();
+        finalString = finalString.trim();
+        this.searchString = finalString;
     }
 }
