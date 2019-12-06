@@ -1,3 +1,14 @@
+.backdrop{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  opacity: 1;
+  z-index: 100;
+}
+
 .header {
 	height: 56px;
 	display: flex;
@@ -55,7 +66,7 @@
 		position: absolute;
 		width: 250px;
 		height: 100vh;
-		z-index: 2;
+		z-index: 200;
   }
   .movie-list{
     flex-direction: column;
