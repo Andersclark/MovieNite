@@ -26,7 +26,9 @@ public class AtlasService {
     public List<Movie> findByTitleContaining(String title){
         return movieCollection.findByTitleContaining(title);
     }
-
+    public void saveMovie(Movie movie){
+        movieCollection.save(movie);
+    }
     public SearchResult findBySearchString(String searchString){
         return searchCollection.findBySearchString(searchString);
     }

@@ -27,6 +27,7 @@ public class MovieController {
              return new ResponseEntity<>(internalResult.get(), HttpStatus.OK);
         } else {
             Optional<Movie> omdbResult = omdbService.findByImdbId(imdbId);
+            omdbResult.ifPresent(movie -> atlasService.saveMovie(movie));
             return omdbResult.map(movie -> (new ResponseEntity<>(movie, HttpStatus.OK))).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
     }
