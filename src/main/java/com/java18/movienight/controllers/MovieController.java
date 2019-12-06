@@ -35,11 +35,11 @@ public class MovieController {
     private ResponseEntity searchByTitleContaining(@RequestParam String title) {
         ResponseEntity response;
         SearchResult results = new SearchResult();
+        results.setSearchString(title);
         results = atlasService.findBySearchString(title);
 
         if(results == null){
              results = omdbService.searchByTitleContaining(title);
-             results.setSearchString(title);
              atlasService.saveSearchResults(results);
         }
         if( results.getMovies().isEmpty()){
