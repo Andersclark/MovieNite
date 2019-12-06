@@ -35,20 +35,18 @@ public class MovieController {
     @GetMapping("/search")
     private ResponseEntity searchByTitleContaining(@RequestParam String title) {
         ResponseEntity response;
-        SearchResult results = new SearchResult();
-        results = atlasService.findBySearchString(title);
+        SearchResult results = atlasService.findBySearchString(title);
 
-        if(results == null){
-             results = omdbService.searchByTitleContaining(title);
-             results.setSearchString(title);
-             atlasService.saveSearchResults(results);
+        if( results == null){
+            results = omdbService.searchByTitleContaining(title);
+            results.setSearchString(title);
         }
         if( results.getMovies().isEmpty()){
            response = new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
+            atlasService.saveSearchResults(results);
             response = new ResponseEntity<>(results.getMovies(), HttpStatus.OK);
         }
-
         return response;
     }
 
