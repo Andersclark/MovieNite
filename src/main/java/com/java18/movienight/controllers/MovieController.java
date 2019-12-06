@@ -41,7 +41,7 @@ public class MovieController {
             results = omdbService.searchByTitleContaining(title);
             results.setSearchString(title);
         }
-        if( results.getMovies().isEmpty()){
+        if( results.getMovies().isEmpty() || results == null || results.getMovies() == null){
            response = new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
             atlasService.saveSearchResults(results);
