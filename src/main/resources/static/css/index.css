@@ -39,29 +39,65 @@
 	flex-direction: column;
 }
 
+
+/* MOVIE-LIST AND CARDS */
 .movie-list {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	flex-direction: row;
 }
 
 .movie-card {
-	width: 25%;
-	border: 1px solid black;
-	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
+	width: 20vw;
+	height: 60vh;
 	justify-content: center;
-	text-align: center;
-	margin: auto;
+	margin: 15px;
+	color: #FFFFFF;
+	background-color: #000000;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	border-radius: 0px 0px 15px 0px;
+}
+.movie-card:hover {
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.7);
+	cursor: pointer;
 }
 
 .movie-poster {
-	height: 100%;
 	width: 100%;
+	max-height: 65%;
+	object-fit: cover;
+}
+.movie-text {
+	align-content: end;
+	width: 100%;
+	height: 35%;;
+	padding: 15px;
+	text-align: left;
+	background-color: #000000;
+	border-radius: 0px 0px 15px 0px;
+}
+.movie-header {
+	float: bottom;
+	font-weight: bold;
+	font-size: medium;
+	text-wrap: none;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.bookbutton {
+	color: #FFFFFF;
 }
 
-@media screen and (max-width: 750px) {
+.bookbutton:hover{
+	background-color: #1EAEDB;
+}
+
+
+
+/* MOBILE SPECIFICS */
+@media screen and (max-width: 700px) {
 	.header {
 		display: none;
 	}
@@ -79,12 +115,9 @@
 		height: 100vh;
 		z-index: 200;
   }
-  .movie-list{
-    flex-direction: column;
-    margin-top: 10%;
-  }
-  .movie-card{
-    width: 80%;
-  }
+	.movie-card{
+		width: 80vw;
+		max-height: 80vh;
+	}
 
 }

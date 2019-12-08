@@ -11,7 +11,7 @@ export default {
   <div>
     <searchField/>
     <div class="movie-list">
-      <movieCard :key="movie.imdbID" :moviePoster="movie.Poster" :movieTitle="movie.Title" v-for="movie in $store.state.searchResults" />
+    	  <movieCard :key="movie.imdbID" :moviePoster="movie.Poster" :movieTitle="movie.Title" :movieYear="movie.Year" v-for="movie in $store.state.searchResults" />
     </div>
   </div>`,
 };
