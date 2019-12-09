@@ -28,6 +28,15 @@ public class SearchResult implements Serializable {
         return movies;
     }
 
+    @JsonProperty("totalResults")
+    private int totalResults;
+
+    public int getTotalResults(){
+        return totalResults;
+    }
+
+
+
     public void setSearchString(String searchString) {
         this.searchString = searchString.trim();
     }

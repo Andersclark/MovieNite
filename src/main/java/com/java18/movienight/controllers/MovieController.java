@@ -45,7 +45,7 @@ public class MovieController {
         if (results == null || results.getMovies().size()<1 ){
            response = new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
-            response = new ResponseEntity<>(results.getMovies(), HttpStatus.OK);
+            response = new ResponseEntity<>(results, HttpStatus.OK);
         }
         return response;
     }
