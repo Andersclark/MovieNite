@@ -18,6 +18,7 @@ export default {
     methods: {
 
         async search() {
+            this.$store.commit('updateSearchString', this.searchstring)
             const response = await fetch('http://localhost:8080/api/v1/movies/search?title='+ this.searchstring );
             let data = await response.json();
             this.$store.commit('updateSearchResults', data);

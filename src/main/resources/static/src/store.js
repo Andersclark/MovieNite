@@ -2,8 +2,9 @@ export const store = new Vuex.Store({
 	state: {
 		greeting: 'Yo dude',
 		isSideBarOpen: false,
-    searchResults: {},
-    totalResults: null,
+		searchResults: {},
+		totalResults: 0,
+		currentSearchString: '',
 	},
 	mutations: {
 		changeGreeting(state, val) {
@@ -12,9 +13,12 @@ export const store = new Vuex.Store({
 		toggleSideBar(state) {
 			state.isSideBarOpen = !state.isSideBarOpen;
 		},
-		updateSearchResults(state, val){
-      state.totalResults = val.totalResults;
-      state.searchResults = val.Search;
+		updateSearchResults(state, val) {
+			state.totalResults = val.totalResults;
+			state.searchResults = val.Search;
+		},
+		updateSearchString(state, val) {
+			state.currentSearchString = val;
 		},
 	},
 });

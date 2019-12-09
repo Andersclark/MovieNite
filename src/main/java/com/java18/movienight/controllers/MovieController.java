@@ -23,8 +23,8 @@ public class MovieController {
     @GetMapping("/{imdbId}")
     private ResponseEntity findByImdbId(@PathVariable String imdbId) {
         Optional<Movie> internalResult = atlasService.findById(imdbId);
-        if(internalResult.isPresent()){
-             return new ResponseEntity<>(internalResult.get(), HttpStatus.OK);
+        if (internalResult.isPresent()) {
+            return new ResponseEntity<>(internalResult.get(), HttpStatus.OK);
         } else {
             Optional<Movie> omdbResult = omdbService.findByImdbId(imdbId);
             omdbResult.ifPresent(movie -> atlasService.saveMovie(movie));
@@ -33,17 +33,20 @@ public class MovieController {
     }
 
     @GetMapping("/search")
-    private ResponseEntity searchByTitleContaining(@RequestParam String title) {
+    private ResponseEntity searchByTitleContaining(@RequestParam String title, @RequestParam(required = false) Integer page) {
         ResponseEntity response;
-        SearchResult results = atlasService.findBySearchString(title);
-
-        if( results == null){
-            results = omdbService.searchByTitleContaining(title);
-            results.setSearchString(title);
+        String titleToSend = title;
+        if (page != null && page > 1) {
+            titleToSend = title + "&page=" + page.toString();
+        }
+        SearchResult results = atlasService.findBySearchString(titleToSend);
+        if (results == null) {
+            results = omdbService.searchByTitleContaining(titleToSend);
+            results.setSearchString(titleToSend);
             atlasService.saveSearchResults(results);
         }
-        if (results == null || results.getMovies().size()<1 ){
-           response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        if (results == null || results.getMovies().size() < 1) {
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
             response = new ResponseEntity<>(results, HttpStatus.OK);
         }
