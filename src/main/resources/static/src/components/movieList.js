@@ -14,8 +14,8 @@ export default {
 	},
 
 	methods: {
-		async paginate() {
-             this.currentPage++
+		async paginate(page) {
+             this.currentPage+=page;    
              const response = await fetch('http://localhost:8080/api/v1/movies/search?title='+ this.$store.state.currentSearchString + "&page=" + this.currentPage );
              let data = await response.json();
              this.$store.commit('updateSearchResults', data);
@@ -32,6 +32,11 @@ export default {
       <movieCard :key="movie.imdbID" :moviePoster="movie.Poster" :movieTitle="movie.Title" v-for="movie in $store.state.searchResults" />
     </div>
     <div v-if="this.totalPages>1">
-      <button @click="paginate">paginate</button></div>
+      <button v-if="this.currentPage>=2" @click="paginate(-1)">prev</button>
+      <button v-else disabled>prev</button>
+      <p>{{this.currentPage}} / {{this.totalPages}}</p>
+      <button v-if="this.currentPage<this.totalPages"@click="paginate(1)">next</button>
+      <button v-else disabled>next</button>
+      </div>
   </div>`,
 };
