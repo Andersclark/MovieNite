@@ -29,8 +29,6 @@ public class SearchResult implements Serializable {
     }
 
     public void setSearchString(String searchString) {
-        var finalString = searchString.toLowerCase();
-        finalString = finalString.trim();
-        this.searchString = finalString;
+        this.searchString = searchString.trim();
     }
 }
