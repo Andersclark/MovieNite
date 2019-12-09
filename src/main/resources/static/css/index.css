@@ -1,0 +1,90 @@
+.nightcode{
+	color: #0FA0CE;
+	background-color:#333333;
+	border: none;
+}
+.nightpre {
+	border-radius: 10px;
+	background-color:#333333;
+}
+
+.backdrop{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  opacity: 1;
+  z-index: 100;
+}
+
+.header {
+	height: 56px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.hamburger {
+	display: none;
+}
+.side-bar {
+	display: none;
+}
+.link-container {
+	display: flex;
+	height: 100vh;
+	background: gold;
+	flex-direction: column;
+}
+
+.movie-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.movie-card {
+	width: 25%;
+	border: 1px solid black;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	margin: auto;
+}
+
+.movie-poster {
+	height: 100%;
+	width: 100%;
+}
+
+@media screen and (max-width: 750px) {
+	.header {
+		display: none;
+	}
+	.hamburger {
+		display: block;
+		position: fixed;
+		left: 20px;
+		top: 20px;
+		cursor: pointer;
+	}
+	.side-bar {
+		display: block;
+		position: fixed;
+		width: 250px;
+		height: 100vh;
+		z-index: 200;
+  }
+  .movie-list{
+    flex-direction: column;
+    margin-top: 10%;
+  }
+  .movie-card{
+    width: 80%;
+  }
+
+}
