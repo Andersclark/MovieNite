@@ -5,7 +5,7 @@ export default {
     <div class="row">
        <div id="searchField">
             <input type="text" v-model="searchstring" v-on:keyup.enter="search">
-            <button @click="search"> <i class="fas fa-search"></i></button>
+            <button @click="search" class="searchbutton"> <i class="fas fa-search"></i></button>
         </div>
     </div>
   </div>

@@ -1,4 +1,18 @@
 
+
+/*FLEX-GRID*/
+
+.flex-grid{
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.col {
+	flex: 1;
+}
+
+/* APP CUSTOMS */
+
 .nightheader{
 	align-content: center;
 	height: 15vh;
@@ -25,7 +39,7 @@
 	width: 100vw;
 
 }
-.backdrop{
+.backdrop {
   position: absolute;
   top: 0;
   right: 0;
@@ -51,20 +65,15 @@
 }
 
 
-/* MOVIE-LIST AND CARDS */
-.movie-list {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	align-content: center;
+.searchbutton{
+	width: 5vh;
+	height: 5vh;
 }
 
+
+/* MOVIE-LIST AND CARDS */
+
 .movie-card {
-	display: flex;
-	flex-direction: column;
-	width: 20vw;
-	height: 60vh;
-	justify-content: center;
 	margin: 15px;
 	color: #FFFFFF;
 	background-color: #000000;
@@ -89,14 +98,16 @@
 	text-align: left;
 	background-color: #000000;
 	border-radius: 0px 0px 15px 0px;
+	margin-bottom: 0;
 }
 .movie-header {
-	float: bottom;
 	font-weight: bold;
 	font-size: medium;
-	text-wrap: none;
-	overflow: hidden;
-	text-overflow: ellipsis;
+}
+.movie-year{
+	font-weight: lighter;
+	font-size: small;
+	margin: 0;
 }
 .bookbutton {
 	color: #FFFFFF;
@@ -109,7 +120,17 @@
 
 
 /* MOBILE SPECIFICS */
-@media screen and (max-width: 700px) {
+
+@media screen and (max-width: 480px) {
+	.flex-grid {
+		display: block;
+		flex-direction: column;
+
+	}
+	.col {
+		flex: 2;
+	}
+
 	.nightheader {
 		display: none;
 	}
@@ -127,9 +148,4 @@
 		height: 100vh;
 		z-index: 200;
   }
-	.movie-card{
-		width: 80vw;
-		max-height: 80vh;
-	}
-
 }
