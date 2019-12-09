@@ -7,17 +7,21 @@ import org.springframework.data.annotation.Id;
 import org.springframework.security.core.Authentication;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Set;
 
 public class User {
   @Id
   private ObjectId _id;
   private String username;
   private String password;
+  private Set<String> roles;
 
   public User(ObjectId _id, String username, String password, String ...roles) {
     this._id = _id;
     this.username = username;
     this.password = password;
+    this.roles = roles != null ? Set.of(roles) : Set.of("USER");
   }
 
   public String get_id() {
@@ -44,6 +48,14 @@ public class User {
   @JsonProperty
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public Set<String> getRoles() {
+    return roles;
+  }
+
+  public void setRoles(Set<String> roles) {
+    this.roles = roles;
   }
 
   public static boolean currentUserIsAdmin(Principal principal){
