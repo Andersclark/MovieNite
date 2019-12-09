@@ -23,7 +23,8 @@ public class SearchResult implements Serializable {
 
     @JsonProperty("Search")
     private ArrayList<MoviePreview> movies;
-
+    @JsonProperty("totalResults")
+    private int totalResults;
     public ArrayList<MoviePreview> getMovies() {
         return movies;
     }

@@ -1,3 +1,16 @@
+
+.nightheader{
+	align-content: center;
+	height: 15vh;
+}
+.nightnavlink {
+	font-weight: bold;
+	align-self: center;
+	text-decoration: none;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 .nightcode{
 	color: #0FA0CE;
 	background-color:#333333;
@@ -7,7 +20,11 @@
 	border-radius: 10px;
 	background-color:#333333;
 }
+.topspace{
+	height: 15vh;
+	width: 100vw;
 
+}
 .backdrop{
   position: absolute;
   top: 0;
@@ -19,12 +36,6 @@
   z-index: 100;
 }
 
-.header {
-	height: 56px;
-	display: flex;
-	justify-content: center;
-	text-align: center;
-}
 
 .hamburger {
 	display: none;
@@ -45,6 +56,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
+	align-content: center;
 }
 
 .movie-card {
@@ -98,7 +110,7 @@
 
 /* MOBILE SPECIFICS */
 @media screen and (max-width: 700px) {
-	.header {
+	.nightheader {
 		display: none;
 	}
 	.hamburger {

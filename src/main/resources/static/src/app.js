@@ -11,6 +11,7 @@ export default {
 
   template: `
     <div id="app">
+      <div class="topspace"></div>
       <navBar />
       <sideBar />
       <backdrop>
