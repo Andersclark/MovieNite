@@ -27,7 +27,7 @@ export default {
 		},
 	},
 	data: function() {
-		return { currentPage: 1 };
+    return { currentPage: 1 };
 	},
 
 	template: `
