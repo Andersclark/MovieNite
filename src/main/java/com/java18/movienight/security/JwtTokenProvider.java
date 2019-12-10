@@ -36,9 +36,9 @@ public class JwtTokenProvider {
     secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
   }
 
-  public String createToken(String username, List<String> roles) {
+  public String createToken(String email, List<String> roles) {
 
-    Claims claims = Jwts.claims().setSubject(username);
+    Claims claims = Jwts.claims().setSubject(email);
     claims.put("auth", roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
 
     Date now = new Date();
@@ -53,11 +53,11 @@ public class JwtTokenProvider {
   }
 
   public Authentication getAuthentication(String token) {
-    UserDetails details = userDetails.loadUserByUsername(getUsername(token));
+    UserDetails details = userDetails.loadUserByUsername(getEmail(token));
     return new UsernamePasswordAuthenticationToken(details, "", details.getAuthorities());
   }
 
-  public String getUsername(String token) {
+  public String getEmail(String token) {
     return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
   }
 

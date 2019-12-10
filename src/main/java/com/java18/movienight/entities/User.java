@@ -4,22 +4,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.security.core.Authentication;
 
-import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class User {
   @Id
   private ObjectId _id;
+  private String email;
   private String username;
   private String password;
   private Set<String> roles;
 
-  public User(ObjectId _id, String username, String password, String ...roles) {
+  public User(ObjectId _id, String email, String password, String ...roles) {
     this._id = _id;
-    this.username = username;
+    this.email = email;
     this.password = password;
     this.roles = roles != null ? Set.of(roles) : Set.of("USER");
   }
@@ -30,6 +31,14 @@ public class User {
 
   public void set_id(ObjectId _id) {
     this._id = _id;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getUsername() {
@@ -50,22 +59,17 @@ public class User {
     this.password = password;
   }
 
-  public Set<String> getRoles() {
-    return roles;
+  public List<String> getRoles() {
+    return new ArrayList<>(roles);
   }
 
   public void setRoles(Set<String> roles) {
     this.roles = roles;
   }
 
-  public static boolean currentUserIsAdmin(Principal principal){
-    org.springframework.security.core.userdetails.User u = (org.springframework.security.core.userdetails.User) ((Authentication) principal).getPrincipal();
-    return u.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
-  }
-
   @Override
   public String toString() {
-    return String.format("USER username: %s, password: %s", username, password);
+    return String.format("USER email: %s, password: %s", email, password);
   }
 }
 

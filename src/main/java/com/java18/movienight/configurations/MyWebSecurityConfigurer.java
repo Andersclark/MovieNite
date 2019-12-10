@@ -41,8 +41,6 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.POST, "/api/register").permitAll()
             .antMatchers("/rest/**", "/api/**").hasRole("USER")
             .antMatchers("/rest/**", "/api/**").hasRole("ADMIN")
-            .anyRequest()
-            .authenticated()
             .and()
             .exceptionHandling().accessDeniedPage("/login")
             .and()

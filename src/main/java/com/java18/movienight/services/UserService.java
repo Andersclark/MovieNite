@@ -12,12 +12,12 @@ public class UserService {
   @Autowired
   private UserRepo userRepo;
 
-  public User findByUsername(String username) {
-    return userRepo.findByUsername(username);
-  }
-
   public User findBy_id(ObjectId _id) {
     return userRepo.findBy_id(_id);
+  }
+
+  public User findOneByEmail(String email) {
+    return userRepo.findDistinctFirstByEmailIgnoreCase(email);
   }
 
   public User insertUser(User user) {

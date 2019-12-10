@@ -1,13 +1,16 @@
 import movieList from '../components/movieList.js'
+import oauthLogin from '../components/oauthLogin.js'
 
 export default {
   components: {
     movieList,
+    oauthLogin
   },
 
   template: `
     <div>
-    <movieList />
+      <oauth-login />
+      <movieList />
     </div>
   `
 }

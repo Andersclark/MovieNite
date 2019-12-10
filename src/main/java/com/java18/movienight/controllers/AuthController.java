@@ -1,8 +1,12 @@
 package com.java18.movienight.controllers;
 
+import com.java18.movienight.entities.JwToken;
 import com.java18.movienight.services.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class AuthController {
@@ -11,14 +15,13 @@ public class AuthController {
   OAuthService oAuthService;
 
   @PostMapping("/storeauthcode")
-  public String storeauthcode(@RequestBody String code, @RequestHeader("X-Requested-With") String encoding) {
+  public ResponseEntity<JwToken> storeauthcode(@RequestBody String code, @RequestHeader("X-Requested-With") String encoding) {
     if (encoding == null || encoding.isEmpty()) {
       // Without the `X-Requested-With` header, this request could be forged. Aborts.
-      return "Error, wrong headers";
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong headers");
     }
+    String email = oAuthService.authorizeWithGoogle(code);
 
-    oAuthService.authorizeWithGoogle(code);
-
-    return "OK";
+    return new ResponseEntity<>(oAuthService.login(email), HttpStatus.OK);
   }
 }

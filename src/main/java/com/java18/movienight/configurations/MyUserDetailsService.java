@@ -27,13 +27,6 @@ public class MyUserDetailsService implements UserDetailsService {
   @Autowired
   private UserService userService;
 
-  @PostConstruct
-  private void createDefaultUsers() {
-    if (userService.findByUsername("user") == null) {
-      addUser(ObjectId.get(),"user", "password");
-    }
-  }
-
   public static UserDetails currentUserDetails(){
     SecurityContext securityContext = SecurityContextHolder.getContext();
     Authentication authentication = securityContext.getAuthentication();
@@ -45,10 +38,10 @@ public class MyUserDetailsService implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userService.findByUsername(username);
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    User user = userService.findOneByEmail(email);
     if (user == null) {
-      throw new UsernameNotFoundException("User not found by name: " + username);
+      throw new UsernameNotFoundException("User not found by email: " + email);
     }
     return toUserDetails(user);
   }
