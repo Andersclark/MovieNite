@@ -33,13 +33,11 @@ public class MovieController {
     }
 
     @GetMapping("/search")
-    private ResponseEntity searchByTitleContaining(@RequestParam String title, @RequestParam(required = false) Integer page) {
+    private ResponseEntity searchByTitleContaining(@RequestParam String title, @RequestParam Integer page) {
         ResponseEntity response;
-        String titleToSend = title;
-        if (page != null && page > 1) {
-            titleToSend = title + "&page=" + page.toString();
-        }
+        String titleToSend = title + "&page=" + page.toString();
         SearchResult results = atlasService.findBySearchString(titleToSend);
+
         if (results == null) {
             results = omdbService.searchByTitleContaining(titleToSend);
             results.setSearchString(titleToSend);
