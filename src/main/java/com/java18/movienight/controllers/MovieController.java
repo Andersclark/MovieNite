@@ -33,18 +33,21 @@ public class MovieController {
     }
 
     @GetMapping("/search")
-    private ResponseEntity searchByTitleContaining(@RequestParam String title, @RequestParam Integer page) {
-        ResponseEntity response;
+    private ResponseEntity<SearchResult> searchByTitleContaining(@RequestParam String title, @RequestParam Integer page) {
+        ResponseEntity<SearchResult> response;
+        if(title.length()<3){
+            response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return response;
+        }
         String titleToSend = title + "&page=" + page.toString();
         SearchResult results = atlasService.findBySearchString(titleToSend);
-
         if (results == null) {
             results = omdbService.searchByTitleContaining(titleToSend);
             results.setSearchString(titleToSend);
             atlasService.saveSearchResults(results);
         }
-        if (results == null || results.getMovies().size() < 1) {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        if (results.getMovies().size() < 1) {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             response = new ResponseEntity<>(results, HttpStatus.OK);
         }
