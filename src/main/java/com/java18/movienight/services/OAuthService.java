@@ -5,6 +5,8 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.java18.movienight.entities.User;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,7 +16,7 @@ public class OAuthService {
   private final String CLIENT_SECRET = "wz1bO_JUMqCgm2FJVDJv1BH3";
   private final String CLIENT_ID = "795907338321-t4bumeavl9g5b5k51itg3257eo95qdfq.apps.googleusercontent.com";
 
-  public void authorizeWithGoogle(String code) {
+  public User authorizeWithGoogle(String code) {
     GoogleTokenResponse tokenResponse = null;
     try {
       tokenResponse = new GoogleAuthorizationCodeTokenRequest(
@@ -70,5 +72,7 @@ public class OAuthService {
     System.out.println("locale: " + locale);
     System.out.println("familyName: " + familyName);
     System.out.println("givenName: " + givenName);
+
+    return new User(ObjectId.get(), email, "secret");
   }
 }
