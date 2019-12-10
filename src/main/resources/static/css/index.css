@@ -1,22 +1,22 @@
-.nightcode{
-	color: #0FA0CE;
-	background-color:#333333;
+.nightcode {
+	color: #0fa0ce;
+	background-color: #333333;
 	border: none;
 }
 .nightpre {
 	border-radius: 10px;
-	background-color:#333333;
+	background-color: #333333;
 }
 
-.backdrop{
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: white;
-  opacity: 1;
-  z-index: 100;
+.backdrop {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: white;
+	opacity: 1;
+	z-index: 100;
 }
 
 .header {
@@ -61,21 +61,21 @@
 	width: 100%;
 }
 .pagination {
-  width: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin: 2rem;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	margin: 2rem;
 }
 
 .pagination * {
-  padding: 0;
-  margin: 0;
+	padding: 0;
+	margin: 0;
 }
 
 .pagination > h6 {
-  margin-left: 2rem;
-  margin-right: 2rem;
+	margin-left: 2rem;
+	margin-right: 2rem;
 }
 @media screen and (max-width: 750px) {
 	.header {
@@ -94,14 +94,16 @@
 		width: 250px;
 		height: 100vh;
 		z-index: 200;
-  }
-  .movie-list{
-    flex-direction: column;
-    margin-top: 10%;
-    align-items: center;
-  }
-  .movie-card{
-    width: 80%;
-  }
-
+	}
+	.movie-list {
+		flex-direction: column;
+		margin-top: 10%;
+		align-items: center;
+	}
+	.movie-card {
+		width: 80%;
+	}
+	.pagination {
+		width: 30%;
+	}
 }
