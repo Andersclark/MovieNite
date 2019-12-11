@@ -2,6 +2,7 @@ package com.java18.movienight.configurations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java18.movienight.entities.LoginRequest;
+import com.java18.movienight.session.CookieUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -10,12 +11,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class RequestBodyReaderAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -40,7 +38,7 @@ public class RequestBodyReaderAuthenticationFilter extends UsernamePasswordAuthe
         System.out.println("SPRING FORM: " + email);
         System.out.println("SPRING FORM: " + password);
         if (!email.isBlank()) {
-          authRequest = new LoginRequest(email);
+          authRequest = new LoginRequest(email, "password");
         }
       } else {
         // Handle Custom POST to /login with a JSON Request Body
@@ -49,16 +47,12 @@ public class RequestBodyReaderAuthenticationFilter extends UsernamePasswordAuthe
       }
 
       UsernamePasswordAuthenticationToken token
-              = new UsernamePasswordAuthenticationToken(authRequest.getEmail(), "secret");
+              = new UsernamePasswordAuthenticationToken(authRequest.username, "secret");
 
       // Allow subclasses to set the "details" property
       setDetails(request, token);
 
-      Cookie c = new Cookie("OAuthCake", "ABCDEFGH");
-      c.setMaxAge(-1);
-      response.addCookie(c);
-      var b = Stream.of(request.getCookies()).map(cookie -> cookie.getName() + " " + cookie.getValue()).collect(Collectors.toList());
-      System.out.println("cookies: " + b);
+      CookieUtils.addCookie(response, "OAuthCake", "ABCDEFGH");
 
       return this.getAuthenticationManager().authenticate(token);
     } catch(IOException e) {

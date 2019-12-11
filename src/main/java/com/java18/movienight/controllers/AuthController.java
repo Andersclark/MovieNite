@@ -16,9 +16,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.List;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
@@ -34,6 +37,13 @@ public class AuthController {
 
   @Autowired
   OAuthService oAuthService;
+
+  @PostConstruct
+  void checkUsers() {
+    List<User> users = userRepo.findAll();
+
+    users.forEach(System.out::println);
+  }
 
   @PostMapping("/storeauthcode") // @CookieValue(value = "username", defaultValue = "Atta") String username
   public User storeauthcode(@RequestBody String code, @RequestHeader("X-Requested-With") String encoding) {

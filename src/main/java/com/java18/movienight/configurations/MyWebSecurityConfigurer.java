@@ -3,6 +3,9 @@ package com.java18.movienight.configurations;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java18.movienight.entities.User;
 import com.java18.movienight.services.UserService;
+import com.java18.movienight.session.CookieUtils;
+import com.java18.movienight.session.SessionAuthenticationFilter;
+import com.java18.movienight.session.SessionAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,14 +24,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Configuration
 @EnableWebSecurity
@@ -44,14 +45,19 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
   private final ObjectMapper objectMapper = new ObjectMapper();
 
   @Bean
-  public RequestBodyReaderAuthenticationFilter authenticationFilter() throws Exception {
-    RequestBodyReaderAuthenticationFilter authenticationFilter
-            = new RequestBodyReaderAuthenticationFilter();
-    authenticationFilter.setAuthenticationSuccessHandler(this::loginSuccessHandler);
+  public RequestBodyReaderAuthenticationFilter loginAuthenticationFilter() throws Exception {
+    RequestBodyReaderAuthenticationFilter authenticationFilter = new RequestBodyReaderAuthenticationFilter();
+//        authenticationFilter.setAuthenticationSuccessHandler(this::loginSuccessHandler); // Respond with "the user object"
     authenticationFilter.setAuthenticationFailureHandler(this::loginFailureHandler);
     authenticationFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/login", "POST"));
     authenticationFilter.setAuthenticationManager(authenticationManagerBean());
     return authenticationFilter;
+  }
+
+  @Bean
+  public SessionAuthenticationProvider sessionAuthProvider() {
+    SessionAuthenticationProvider authProvider = new SessionAuthenticationProvider();
+    return authProvider;
   }
 
   @Override
@@ -60,6 +66,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
+            .antMatchers(HttpMethod.GET, "/").permitAll()
             .antMatchers("/login").permitAll()
             .antMatchers("/auth**").permitAll()
             .antMatchers(HttpMethod.GET, "/api/users/*").hasRole("USER")
@@ -69,26 +76,33 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
             .antMatchers("/rest/**", "/api/**").hasRole("ADMIN")
             .and()
             .addFilterBefore(
-                    authenticationFilter(),
+                    sessionAuthenticationFilter(),
+                    BasicAuthenticationFilter.class)
+            .addFilterBefore(
+                    loginAuthenticationFilter(),
                     UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling().accessDeniedPage("/login")
             .and()
-            .logout().permitAll().logoutSuccessUrl("/")
+            .logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/")
             .logoutSuccessHandler(this::logoutSuccessHandler)
             .and().csrf().disable()
     ;
   }
 
-  public DaoAuthenticationProvider authenticationProvider() {
-    DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-    auth.setUserDetailsService(myUserDetailsService);
-    auth.setPasswordEncoder(myUserDetailsService.getEncoder());
-    return auth;
+  @Bean
+  public DaoAuthenticationProvider authProvider() {
+    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    authProvider.setUserDetailsService(myUserDetailsService);
+    authProvider.setPasswordEncoder(myUserDetailsService.getEncoder());
+    return authProvider;
   }
 
-  @Override
-  public void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.authenticationProvider(authenticationProvider());
+  @Bean
+  public SessionAuthenticationFilter sessionAuthenticationFilter() throws Exception {
+    SessionAuthenticationFilter authenticationFilter  = new SessionAuthenticationFilter();
+    authenticationFilter.setAuthenticationFailureHandler(this::loginFailureHandler);
+    authenticationFilter.setAuthenticationManager(authenticationManagerBean());
+    return authenticationFilter;
   }
 
   @Override
@@ -135,18 +149,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
           HttpServletResponse response,
           Authentication authentication) throws IOException {
 
-    // TODO: Remove cookie
-    var b = Stream.of(request.getCookies())
-            .filter(cookie -> cookie.getName().equals("OAuthCake"))
-            .map(cookie -> cookie.getName() + " " + cookie.getValue())
-            .collect(Collectors.toList());
-
-    System.out.println("cookies: " + b);
-
-    Cookie cookie = new Cookie("OAuthCake", null);
-    cookie.setMaxAge(0);
-    response.addCookie(cookie);
-
+    CookieUtils.removeCookie(request, response, "OAuthCake");
     response.setStatus(HttpStatus.OK.value());
     objectMapper.writeValue(response.getWriter(), "Bye!");
   }

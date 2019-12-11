@@ -7,12 +7,17 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.java18.movienight.entities.User;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
 public class OAuthService {
+
+  @Autowired
+  UserService userService;
+
   private final String CLIENT_SECRET = "wz1bO_JUMqCgm2FJVDJv1BH3";
   private final String CLIENT_ID = "795907338321-t4bumeavl9g5b5k51itg3257eo95qdfq.apps.googleusercontent.com";
 
@@ -73,6 +78,9 @@ public class OAuthService {
     System.out.println("familyName: " + familyName);
     System.out.println("givenName: " + givenName);
 
-    return new User(ObjectId.get(), email, "secret");
+    User user = new User(ObjectId.get(), name, email, pictureUrl, accessToken, refreshToken, expiresAt);
+    userService.insertUser(user);
+
+    return user;
   }
 }

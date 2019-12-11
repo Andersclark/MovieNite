@@ -7,20 +7,29 @@ import org.springframework.data.annotation.Id;
 import org.springframework.security.core.Authentication;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Set;
 
 public class User {
   @Id
   private ObjectId _id;
+  private String email;
   private String username;
-  private String password;
+  private String pictureUrl;
   private Set<String> roles;
+  private String accessToken;
+  private String refreshToken;
+  private long tokenExpires;
 
-  public User(ObjectId _id, String username, String password, String ...roles) {
+  public User() {}
+
+  public User(ObjectId _id, String username, String email, String pictureUrl, String accessToken, String refreshToken, long tokenExpires, String ...roles) {
     this._id = _id;
     this.username = username;
-    this.password = password;
+    this.email = email;
+    this.pictureUrl = pictureUrl;
+    this.accessToken = accessToken;
+    this.refreshToken = refreshToken;
+    this.tokenExpires = tokenExpires;
     this.roles = roles != null ? Set.of(roles) : Set.of("USER");
   }
 
@@ -40,14 +49,44 @@ public class User {
     this.username = username;
   }
 
-  @JsonIgnore
-  public String getPassword() {
-    return password;
+  public String getEmail() {
+    return email;
   }
 
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPictureUrl() {
+    return pictureUrl;
+  }
+
+  public void setPictureUrl(String pictureUrl) {
+    this.pictureUrl = pictureUrl;
+  }
+  @JsonIgnore
+  public String getAccessToken() {
+    return accessToken;
+  }
   @JsonProperty
-  public void setPassword(String password) {
-    this.password = password;
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
+  }
+  @JsonIgnore
+  public String getRefreshToken() {
+    return refreshToken;
+  }
+  @JsonProperty
+  public void setRefreshToken(String refreshToken) {
+    this.refreshToken = refreshToken;
+  }
+  @JsonIgnore
+  public long getTokenExpires() {
+    return tokenExpires;
+  }
+  @JsonProperty
+  public void setTokenExpires(long tokenExpires) {
+    this.tokenExpires = tokenExpires;
   }
 
   public Set<String> getRoles() {
@@ -60,12 +99,12 @@ public class User {
 
   public static boolean currentUserIsAdmin(Principal principal){
     org.springframework.security.core.userdetails.User u = (org.springframework.security.core.userdetails.User) ((Authentication) principal).getPrincipal();
-    return u.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+    return u.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
   }
 
   @Override
   public String toString() {
-    return String.format("USER username: %s, password: %s", username, password);
+    return String.format("USER \nusername: %s \nemail: %s \npictureUrl: %s \naccessToken: %s \nrefreshToken: %s \ntokenExpires: %d", username, email, pictureUrl, accessToken, refreshToken, tokenExpires);
   }
 }
 
