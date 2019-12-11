@@ -1,5 +1,5 @@
-import movieList from '../components/movieList.js'
-import OAuthLogin from '../components/OAuthLogin.js'
+import movieList from "../components/movieList.js";
+import OAuthLogin from "../components/OAuthLogin.js";
 
 export default {
   components: {
@@ -12,4 +12,4 @@ export default {
       <movieList />
     </div>
   `
-}
+};
