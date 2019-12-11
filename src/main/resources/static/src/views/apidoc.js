@@ -27,7 +27,7 @@ export default {
             <div class="container">
             
              <div class="row">
-                <div class="half column">
+                <div class="column">
                     <h3>Examples</h3>
                     <p>The API returns JSON-objects of either a full Movie-object or an array of MoviePreview-objects, which contain only the essentials.</p>
                     <h4>Object: Movie</h4>
@@ -79,7 +79,7 @@ export default {
             </div>
            <div class="container">
             <div class="row">
-                <div class="one-half column">
+                <div class="column">
                     <h4>Object: SearchResult</h4>
                     <pre class="nightpre"><code class="nightcode" >
 [

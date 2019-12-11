@@ -1,10 +1,22 @@
 
+/* BASIC CSS */
+a {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* APP */
+.app {
+
+}
 
 /*FLEX-GRID*/
 
 .flex-grid{
 	display: flex;
 	flex-flow: row wrap;
+	font-weight: bold;
+	font-size: 1em;
 }
 
 .col {
@@ -14,15 +26,18 @@
 /* APP CUSTOMS */
 
 .nightheader{
+	list-style-type: none;
+	background-color: #000000;
+	color: #FFFFFF;
 	align-content: center;
-	height: 15vh;
+	padding: 5%;
 }
 .nightnavlink {
-	font-weight: bold;
-	align-self: center;
-	text-decoration: none;
-	padding-left: 10px;
-	padding-right: 10px;
+	display: inline;
+	font-weight: bolder;
+	font-size: 1.2em;
+}
+.nightnavlink:hover {
 }
 
 .nightcode{
@@ -38,16 +53,6 @@
 	height: 15vh;
 	width: 100vw;
 
-}
-.backdrop {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: white;
-  opacity: 1;
-  z-index: 100;
 }
 
 
@@ -66,10 +71,12 @@
 
 
 .searchbutton{
-	width: 5vh;
-	height: 5vh;
-}
+	height:50px;
+	width:50px;
+	align-content: center;
+	background-color: black;
 
+}
 
 /* MOVIE-LIST AND CARDS */
 
@@ -134,6 +141,7 @@
 	.nightheader {
 		display: none;
 	}
+
 	.hamburger {
 		display: block;
 		position: fixed;

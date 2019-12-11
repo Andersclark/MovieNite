@@ -1,14 +1,14 @@
 export default {
   template: `
   <div>
-      <div @click="toggleSideBar" class="hamburger">
+        <div @click="toggleSideBar" class="hamburger">
           <i class="fas fa-bars"></i>
-      </div>
-      <div class="nightheader">
-        <router-link style="nightnavlink" to="/">Home</router-link>
-        <router-link style="nightnavlink" to="/about">About</router-link>
-        <router-link style="nightnavlink" to="/apidoc">API</router-link>
-      </div>
+        </div>
+        <ul class="nightheader">
+            <li class="nightnavlink"><router-link  to="/">HOME</router-link></li>
+            <li class="nightnavlink"><router-link to="/about">ABOUT</router-link></li>
+            <li class="nightnavlink"><router-link to="/apidoc">API</router-link></li>
+        </ul>
   </div>`,
  
  methods: {
