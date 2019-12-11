@@ -136,90 +136,97 @@ a {
 		flex-direction: column;
 
 	}
+
 	.col {
 		flex: 2;
 	}
 
-	.nightheader {
-/*    MOVIE DETAILS   */
-.movieDetails{
-	background-color: #000000;
-	color: #FFFFFF;
-	width: 100%;
-	min-height: 100vh;
-}
-
-.moviedetails-card {
-	padding: 20px;
-	margin: 0;
-}
-
-.moviedetails-header {
-	font-size: 1.8em;
-}
-
-.moviedetails-poster{
-	object-fit: cover;
-	object-position: center;
-	width: 100%;
-	height: 50vh;
-	margin: 0;
-}
-
-.moviedetails-list {
-	list-style: none;
-	font-weight: lighter;
-}
-.moviedetails-plotheader{
-	font-weight: bolder;
-	margin-bottom: 0;
-}
-.floatbutton{
-	position:fixed;
-	width:60px;
-	height:60px;
-	bottom:40px;
-	right:40px;
-	background-color:#1EAEDB;
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-	box-shadow: 2px 2px 3px #999;
-}
-.plusbutton{
-	margin-top:22px;
-}
-.movieevent{
-	background-color: #222222;
-	color: #FFFFFF;
-}
-
-
-
-@media screen and (max-width: 750px){
-	.header {
-		display: none;
+	/*    MOVIE DETAILS   */
+	.movieDetails {
+		background-color: #000000;
+		color: #FFFFFF;
+		width: 100%;
+		min-height: 100vh;
 	}
 
-	.hamburger {
-		display: block;
-		position: fixed;
-		left: 20px;
-		top: 20px;
-		cursor: pointer;
+	.moviedetails-card {
+		padding: 20px;
+		margin: 0;
 	}
-	.side-bar {
-		display: block;
+
+	.moviedetails-header {
+		font-size: 1.8em;
+	}
+
+	.moviedetails-poster {
+		object-fit: cover;
+		object-position: center;
+		width: 100%;
+		height: 50vh;
+		margin: 0;
+	}
+
+	.moviedetails-list {
+		list-style: none;
+		font-weight: lighter;
+	}
+
+	.moviedetails-plotheader {
+		font-weight: bolder;
+		margin-bottom: 0;
+	}
+
+	.floatbutton {
 		position: fixed;
-		width: 250px;
-		height: 100vh;
-		z-index: 200;
-  }
-  .movie-list{
-    flex-direction: column;
-    margin-top: 10%;
-  }
-  .movie-card{
-    width: 80%;
-  }
+		width: 60px;
+		height: 60px;
+		bottom: 40px;
+		right: 40px;
+		background-color: #1EAEDB;
+		color: #FFF;
+		border-radius: 50px;
+		text-align: center;
+		box-shadow: 2px 2px 3px #999;
+	}
+
+	.plusbutton {
+		margin-top: 22px;
+	}
+
+	.movieevent {
+		background-color: #222222;
+		color: #FFFFFF;
+	}
+
+
+	@media screen and (max-width: 750px) {
+		.header {
+			display: none;
+		}
+
+		.hamburger {
+			display: block;
+			position: fixed;
+			left: 20px;
+			top: 20px;
+			cursor: pointer;
+		}
+
+		.side-bar {
+			display: block;
+			position: fixed;
+			width: 250px;
+			height: 100vh;
+			z-index: 200;
+		}
+
+		.movie-list {
+			flex-direction: column;
+			margin-top: 10%;
+		}
+
+		.movie-card {
+			width: 80%;
+		}
+	}
 }

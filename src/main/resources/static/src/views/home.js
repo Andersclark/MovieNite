@@ -7,7 +7,7 @@ export default {
 
   template: `
     <div>
-    <movieList />
+        <movieList />
     </div>
   `
 }
