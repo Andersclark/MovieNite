@@ -1,17 +1,13 @@
 package com.java18.movienight.entities;
 
 public class LoginRequest {
-  private String email;
+  public String username;
+  public String password;
 
-  public LoginRequest(String email) {
-    this.email = email;
+  public LoginRequest(String username, String password) {
+    this.username = username;
+    this.password = password;
   }
 
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
+  public LoginRequest() {}
 }
