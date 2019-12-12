@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -35,9 +36,8 @@ public class MovieController {
     @GetMapping("/search")
     private ResponseEntity<SearchResult> searchByTitleContaining(@RequestParam String title, @RequestParam Integer page) {
         ResponseEntity<SearchResult> response;
-        if(title.length()<3){
-            response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            return response;
+        if (title.length() < 3) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Search must be at least three characters");
         }
         String titleToSend = title + "&page=" + page.toString();
         SearchResult results = atlasService.findBySearchString(titleToSend);
@@ -46,8 +46,8 @@ public class MovieController {
             results.setSearchString(titleToSend);
             atlasService.saveSearchResults(results);
         }
-        if (results.getMovies().size() < 1) {
-            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (results.getMovies() == null) {
+            response = new ResponseEntity<>(results, HttpStatus.NOT_FOUND);
         } else {
             response = new ResponseEntity<>(results, HttpStatus.OK);
         }
