@@ -6,38 +6,42 @@ a {
 }
 
 /* APP */
-.app {
-
+#app {
+	padding: 2%;
+	max-width: 500px;
+	align-content: center;
+	align-items: center;
+	align-self: center;
 }
 
 /*FLEX-GRID*/
 
 .flex-grid{
 	display: flex;
-	flex-flow: row wrap;
-	font-weight: bold;
-	font-size: 1em;
+	flex-flow: column wrap;
 }
 
 .col {
-	flex: 1;
+	flex: 2;
+	margin: 15px;
 }
 
 /* APP CUSTOMS */
 
-.nightheader{
+.navbar{
+	display: none;
 	list-style-type: none;
-	background-color: #000000;
-	color: #FFFFFF;
+	background-color: #FFFFFF;
+	color: #000000;
 	align-content: center;
 	padding: 5%;
+	border-bottom: #333333;
 }
+
 .nightnavlink {
 	display: inline;
 	font-weight: bolder;
 	font-size: 1.2em;
-}
-.nightnavlink:hover {
 }
 
 .nightcode{
@@ -55,17 +59,27 @@ a {
 
 }
 
-
 .hamburger {
-	display: none;
+	display: block;
+	position: fixed;
+	left: 20px;
+	top: 20px;
+	cursor: pointer;
 }
+
 .side-bar {
-	display: none;
+	display: block;
+	position: fixed;
+	width: 250px;
+	height: 100vh;
+	z-index: 200;
+	background-color: #000000;
+	color: #FFFFFF;
 }
+
 .link-container {
 	display: flex;
-	height: 100vh;
-	background: gold;
+	height: 100%;
 	flex-direction: column;
 }
 
@@ -74,14 +88,11 @@ a {
 	height:50px;
 	width:50px;
 	align-content: center;
-	background-color: black;
-
 }
 
 /* MOVIE-LIST AND CARDS */
 
 .movie-card {
-	margin: 15px;
 	color: #FFFFFF;
 	background-color: #000000;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -92,141 +103,138 @@ a {
 	cursor: pointer;
 }
 
-
-
 .movie-poster {
 	width: 100%;
-	max-height: 65%;
+	max-height: 60%;
 	object-fit: cover;
 }
 .movie-text {
-	align-content: end;
-	width: 100%;
 	height: 35%;;
-	padding: 15px;
-	text-align: left;
 	background-color: #000000;
 	border-radius: 0px 0px 15px 0px;
-	margin-bottom: 0;
 }
 .movie-header {
-	font-weight: bold;
+	font-weight: bolder;
 	font-size: medium;
+	padding: 10px;
 }
 .movie-year{
 	font-weight: lighter;
 	font-size: small;
 	margin: 0;
 }
-.bookbutton {
+
+/* FLEX GRID */
+
+.flex-grid {
+	display: block;
+	flex-direction: column;
+}
+
+.col {
+	flex: 1;
+}
+
+/*    MOVIE DETAILS   */
+.movieDetails {
+	background-color: #000000;
 	color: #FFFFFF;
+	width: 100%;
+	min-height: 100vh;
 }
 
-.bookbutton:hover{
+.moviedetails-card {
+	padding: 20px;
+	margin: 0;
+}
+
+.moviedetails-header {
+	font-size: 1.8em;
+}
+
+.moviedetails-poster {
+	object-fit: cover;
+	object-position: center;
+	width: 100%;
+	height: 50vh;
+	margin: 0;
+}
+
+.moviedetails-list {
+	list-style: none;
+	font-weight: lighter;
+}
+
+.moviedetails-plotheader {
+	font-weight: bolder;
+	margin-bottom: 0;
+}
+
+.movieevent{
+	min-height: 100vh;
+	background: #333333;
+
+}
+
+.floatbutton {
+	position: fixed;
+	width: 60px;
+	height: 60px;
+	bottom: 40px;
+	right: 40px;
 	background-color: #1EAEDB;
+	color: #FFF;
+	border-radius: 50px;
+	text-align: center;
+	box-shadow: 2px 2px 3px #999
 }
 
+.plusbutton {
+margin-top: 22px;
+}
+.plusbutton:hover{
+	cursor: pointer;
+}
 
+.movieevent {
+background-color: #222222;
+color: #FFFFFF;
+}
 
-/* MOBILE SPECIFICS */
+/* DESKTOP SPECIFICS */
 
-@media screen and (max-width: 480px) {
-	.flex-grid {
+@media screen and (min-width: 481px) {
+	.header {
 		display: block;
-		flex-direction: column;
-
 	}
 
-	.col {
-		flex: 2;
+	.navbar {
+		display: block;
+	}
+	.hamburger {
+		display: none;
 	}
 
-	/*    MOVIE DETAILS   */
-	.movieDetails {
-		background-color: #000000;
-		color: #FFFFFF;
+	.side-bar {
+		display: none;
+	}
+	.flex-grid{
+		display: flex;
+		flex-flow: row wrap;
+	}
+
+	.movie-list {
+		margin-top: 10%;
+	}
+
+	.movie-card {
 		width: 100%;
-		min-height: 100vh;
 	}
-
-	.moviedetails-card {
-		padding: 20px;
-		margin: 0;
-	}
-
-	.moviedetails-header {
-		font-size: 1.8em;
-	}
-
 	.moviedetails-poster {
 		object-fit: cover;
 		object-position: center;
 		width: 100%;
 		height: 50vh;
 		margin: 0;
-	}
-
-	.moviedetails-list {
-		list-style: none;
-		font-weight: lighter;
-	}
-
-	.moviedetails-plotheader {
-		font-weight: bolder;
-		margin-bottom: 0;
-	}
-
-	.floatbutton {
-		position: fixed;
-		width: 60px;
-		height: 60px;
-		bottom: 40px;
-		right: 40px;
-		background-color: #1EAEDB;
-		color: #FFF;
-		border-radius: 50px;
-		text-align: center;
-		box-shadow: 2px 2px 3px #999;
-	}
-
-	.plusbutton {
-		margin-top: 22px;
-	}
-
-	.movieevent {
-		background-color: #222222;
-		color: #FFFFFF;
-	}
-
-
-	@media screen and (max-width: 750px) {
-		.header {
-			display: none;
-		}
-
-		.hamburger {
-			display: block;
-			position: fixed;
-			left: 20px;
-			top: 20px;
-			cursor: pointer;
-		}
-
-		.side-bar {
-			display: block;
-			position: fixed;
-			width: 250px;
-			height: 100vh;
-			z-index: 200;
-		}
-
-		.movie-list {
-			flex-direction: column;
-			margin-top: 10%;
-		}
-
-		.movie-card {
-			width: 80%;
-		}
 	}
 }

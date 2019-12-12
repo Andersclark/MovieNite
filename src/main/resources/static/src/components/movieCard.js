@@ -4,9 +4,10 @@ export default{
 
   template: `
   <router-link :to="'/movie/' + movieId" class="movie-card col" tag="div">
-        <img class="movie-poster" :src="moviePoster" alt="Movie poster"/>
-        <div class="movie-text container">
+    <img class="movie-poster" :src="moviePoster" alt="Movie poster"/>
+    <div class="movie-text">
         <h3 class="movie-header">{{movieTitle}}</h3>
-      </router-link>
-  </div>`
+    </div>
+  </router-link>
+`
 }
