@@ -16,7 +16,9 @@ a {
 	display: flex;
 	flex-flow: column wrap;
 }
-
+.pagination {
+    width: 30%;
+}
 .col {
 	flex: 2;
 	margin: 15px;
@@ -43,6 +45,9 @@ a {
 .nightcode{
 	color: #0FA0CE;
 	background-color:#333333;
+.nightcode {
+	color: #0fa0ce;
+	background-color: #333333;
 	border: none;
 }
 .nightpre {
@@ -53,6 +58,22 @@ a {
 	height: 15vh;
 	width: 100vw;
 
+.backdrop{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  opacity: 1;
+  z-index: 100;
+}
+
+.header {
+	height: 56px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
 }
 
 .hamburger {
@@ -202,6 +223,7 @@ a {
 margin-top: 22px;
 }
 
+
 /* DESKTOP SPECIFICS */
 
 @media screen and (min-width: 481px) {
@@ -212,6 +234,23 @@ margin-top: 22px;
         align-items: center;
     }
 
+    .pagination {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: 2rem;
+    }
+
+    .pagination * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .pagination > h6 {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
 	.col {
         flex: 3;
     }

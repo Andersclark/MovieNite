@@ -15,5 +15,11 @@ export default {
       <sideBar />
       <router-view />
     </div>
-  `
+  `,
+  async created() {
+    let result = await fetch('auth/whoami')
+    result = await result.json()
+
+    console.log('/whoami', result);
+  }
 }
