@@ -7,11 +7,7 @@ a {
 
 /* APP */
 #app {
-	padding: 2%;
-	max-width: 500px;
-	align-content: center;
-	align-items: center;
-	align-self: center;
+    width: 100vw;
 }
 
 /*FLEX-GRID*/
@@ -170,11 +166,19 @@ a {
 	margin-bottom: 0;
 }
 
-.movieevent{
+.movie-event{
+	padding: 15%;
 	min-height: 100vh;
 	background: #333333;
+}
+
+.movie-event-form {
 
 }
+.movie-event-form input{
+    color: #000000;
+}
+
 
 .floatbutton {
 	position: fixed;
@@ -189,22 +193,30 @@ a {
 	box-shadow: 2px 2px 3px #999
 }
 
-.plusbutton {
-margin-top: 22px;
-}
-.plusbutton:hover{
-	cursor: pointer;
+.floatbutton:hover{
+    cursor: pointer;
+    color: yellow;
 }
 
-.movieevent {
-background-color: #222222;
-color: #FFFFFF;
+.plusbutton {
+margin-top: 22px;
 }
 
 /* DESKTOP SPECIFICS */
 
 @media screen and (min-width: 481px) {
-	.header {
+    #app {
+        padding-right: 25vw;
+        padding-left: 25vw;
+        align-content: center;
+        align-items: center;
+    }
+
+	.col {
+        flex: 3;
+    }
+
+    .header {
 		display: block;
 	}
 

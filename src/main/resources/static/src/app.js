@@ -13,9 +13,7 @@ export default {
     <div id="app">
       <navBar />
       <sideBar />
-      <backdrop>
-        <router-view />
-      </backdrop>
+      <router-view />
     </div>
   `
 }
