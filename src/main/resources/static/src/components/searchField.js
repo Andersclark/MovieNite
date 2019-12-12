@@ -39,6 +39,4 @@ export default {
                 this.$store.commit('updateSearchResults', data);
             },
         },
-        }
-    }
 };
