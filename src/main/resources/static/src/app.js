@@ -17,5 +17,11 @@ export default {
         <router-view />
       </backdrop>
     </div>
-  `
+  `,
+  async created() {
+    let result = await fetch('auth/whoami')
+    result = await result.json()
+
+    console.log('/whoami', result);
+  }
 }

@@ -47,7 +47,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
   @Bean
   public RequestBodyReaderAuthenticationFilter loginAuthenticationFilter() throws Exception {
     RequestBodyReaderAuthenticationFilter authenticationFilter = new RequestBodyReaderAuthenticationFilter();
-//        authenticationFilter.setAuthenticationSuccessHandler(this::loginSuccessHandler); // Respond with "the user object"
+    authenticationFilter.setAuthenticationSuccessHandler(this::loginSuccessHandler); // Respond with "the user object"
     authenticationFilter.setAuthenticationFailureHandler(this::loginFailureHandler);
     authenticationFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/login", "POST"));
     authenticationFilter.setAuthenticationManager(authenticationManagerBean());
@@ -68,7 +68,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(HttpMethod.GET, "/").permitAll()
             .antMatchers("/login").permitAll()
-            .antMatchers("/auth**").permitAll()
+            .antMatchers("/auth/**").permitAll()
             .antMatchers(HttpMethod.GET, "/api/users/*").hasRole("USER")
             .antMatchers(HttpMethod.GET, "/rest/**", "/api/**").permitAll()
             .antMatchers(HttpMethod.POST, "/api/register").permitAll()
@@ -112,11 +112,19 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    auth.inMemoryAuthentication()
-            .withUser("user")
-            .password(myUserDetailsService.getEncoder().encode("password"))
-            .roles("USER");
+    System.out.println("configureGlobal sessionAuthenticationProvider");
+    auth
+            .authenticationProvider(authProvider())
+            .authenticationProvider(sessionAuthProvider());
   }
+
+//  @Autowired
+//  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//    auth.inMemoryAuthentication()
+//            .withUser("user")
+//            .password(myUserDetailsService.getEncoder().encode("password"))
+//            .roles("USER");
+//  }
 
   @Bean("authenticationManager")
   @Override
@@ -141,7 +149,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
           AuthenticationException e) throws IOException {
 
     response.setStatus(HttpStatus.UNAUTHORIZED.value());
-    objectMapper.writeValue(response.getWriter(), "Nopity nop!");
+    objectMapper.writeValue(response.getWriter(), e.getMessage());
   }
 
   private void logoutSuccessHandler(

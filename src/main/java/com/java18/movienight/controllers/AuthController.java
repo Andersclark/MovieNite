@@ -12,13 +12,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
@@ -40,9 +43,28 @@ public class AuthController {
 
   @PostConstruct
   void checkUsers() {
+//    userRepo.deleteAll();
+
     List<User> users = userRepo.findAll();
 
     users.forEach(System.out::println);
+  }
+
+  @GetMapping("/whoami")
+  public User whoAmI() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    String username;
+    if (principal instanceof UserDetails) {
+      username = ((UserDetails)principal).getUsername();
+    } else {
+      username = principal.toString();
+    }
+    System.err.println(username);
+    if (username == null || username.equals("anonymousUser")) {
+      return null;
+    }
+
+    return userRepo.findByEmail(username);
   }
 
   @PostMapping("/storeauthcode") // @CookieValue(value = "username", defaultValue = "Atta") String username

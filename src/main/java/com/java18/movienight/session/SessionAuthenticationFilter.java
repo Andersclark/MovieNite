@@ -62,7 +62,7 @@ public class SessionAuthenticationFilter extends AbstractAuthenticationProcessin
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-    Optional<Cookie> cookie = CookieUtils.getCookie(request);
+    Optional<Cookie> cookie = CookieUtils.getCookie(request, "OAuthCake");
 
     if (cookie.isPresent()) {
       String cookieVal = cookie.get().getValue();

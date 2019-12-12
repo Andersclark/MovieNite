@@ -30,7 +30,7 @@ public class User {
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
     this.tokenExpires = tokenExpires;
-    this.roles = roles != null ? Set.of(roles) : Set.of("USER");
+    this.roles = roles.length > 0 ? Set.of(roles) : Set.of("USER");
   }
 
   public String get_id() {

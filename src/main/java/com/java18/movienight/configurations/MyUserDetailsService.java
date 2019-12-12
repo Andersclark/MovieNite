@@ -36,7 +36,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userService.findByUsername(username);
+    User user = userService.findByEmail(username);
     if (user == null) {
       throw new UsernameNotFoundException("User not found by name: " + username);
     }
@@ -46,7 +46,7 @@ public class MyUserDetailsService implements UserDetailsService {
   private UserDetails toUserDetails(User user) {
     return org.springframework.security.core.userdetails.User
             .withUsername(user.getUsername())
-            .password("password")
+            .password(encoder.encode("password"))
             .roles(user.getRoles().toArray(new String[0])).build();
   }
 }
