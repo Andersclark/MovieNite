@@ -1,19 +1,14 @@
 export default {
     template: `
-  <div>
-  <div class="container">
-    <div class="row">
-       <div id="searchField">
-            <input type="text" v-model="searchString" v-on:keyup.enter="search">
-            <button @click="search" class="searchbutton"> <i class="fas fa-search"></i></button>
-            <h3 v-if="noResults">{{errorMsg}}</h3>
+     <div class="container">
+        <div id="searchField row">
+            <input type="text" v-model="searchString" v-on:keyup.enter="search">  <button @click="search" class="searchbutton"> <i class="fas fa-search"></i></button></input>
+            <h6 class="searchnoresults" v-if="noResults">{{errorMsg}}</h6>
         </div>
-    </div>
-  </div>
-  </div>`,
+    </div>`,
     data(){
         return {
-            searchstring: '',
+            searchString: '',
             noResults: false,
             errorMsg: '',
         }

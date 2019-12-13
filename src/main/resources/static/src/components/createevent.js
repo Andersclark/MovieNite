@@ -1,4 +1,10 @@
+import OAuthLogin from "./OAuthLogin.js";
+
 export default {
+    components: {
+        OAuthLogin,
+    },
+
     template: `
         <div> 
             <div v-if="showEventForm" class="movie-event movie-event-form">
@@ -7,6 +13,7 @@ export default {
                 <input v-model="event.description" type="text" placeholder="description">
                 <input v-model="event.time" type="text" placeholder="time">
                 <button class="button-primary" v-on:click="showEventForm = false">Save</button>
+                <OAuthLogin/>
             </div>
             
             <div v-else class="movie-event">
