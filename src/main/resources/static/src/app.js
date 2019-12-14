@@ -10,7 +10,7 @@ export default {
   },
 
   template: `
-    <div id="app">
+    <div id="app" class="container">
     <div id="topspacer"></div>
       <navBar />
       <sideBar />

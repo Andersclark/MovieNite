@@ -6,8 +6,7 @@ export default {
 	},
 
 	template: `
-    <div class="movie-list flex-grid">
-     
+    <div class="movie-list one-half column">
       <movieCard :key="movie.imdbID"  :movieId="movie.imdbID" :moviePoster="movie.Poster" :movieTitle="movie.Title" v-for="movie in $store.state.searchResults" />
        <div class="pagination row">
         <button v-if="$store.state.currentPage>=2" @click="paginate(-1)">prev</button>
@@ -44,10 +43,10 @@ export default {
       let newPage;
 			if (event.target.value < this.$store.state.currentPage) {
         newPage = this.$store.state.currentPage - event.target.value;
-        this.paginate(-newPage);
-			}else{
-        newPage = event.target.value-this.$store.state.currentPage;
-        this.paginate(newPage)
+        		this.paginate(-newPage);
+			} else {
+				newPage = event.target.value-this.$store.state.currentPage;
+				this.paginate(newPage)
       }
 		},
 	},

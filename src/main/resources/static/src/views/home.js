@@ -8,9 +8,11 @@ export default {
   },
 
   template: `
-    <div>
+        <div class="row">
+        <div class="one-half column">
       <searchField />
       <movieList />
+      </div>
     </div>
   `
 };
