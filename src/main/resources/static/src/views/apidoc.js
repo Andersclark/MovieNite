@@ -2,7 +2,7 @@
 export default {
     template: `
     <div id="apidoc">
-        <div class="container">
+    <div class="container">
             <div class="row">
                 <div class="one-half column">
                      <h3>API documentation</h3>
@@ -104,7 +104,7 @@ export default {
                 </div>
             </div>
            </div>
+</div>
         </div>
-    </div>
   `,
 }

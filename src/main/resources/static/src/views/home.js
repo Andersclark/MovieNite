@@ -8,10 +8,12 @@ export default {
   },
 
   template: `
+    <div class="container">
         <div class="row">
-        <div class="one-half column">
-      <searchField />
-      <movieList />
+          
+            <searchField />
+            <movieList />
+          
       </div>
     </div>
   `

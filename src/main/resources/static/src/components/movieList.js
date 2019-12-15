@@ -6,7 +6,7 @@ export default {
 	},
 
 	template: `
-    <div class="movie-list one-half column">
+    <div class="row">
       <movieCard :key="movie.imdbID"  :movieId="movie.imdbID" :moviePoster="movie.Poster" :movieTitle="movie.Title" v-for="movie in $store.state.searchResults" />
        <div class="pagination row">
         <button v-if="$store.state.currentPage>=2" @click="paginate(-1)">prev</button>

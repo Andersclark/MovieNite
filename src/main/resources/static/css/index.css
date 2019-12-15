@@ -12,13 +12,9 @@ a {
 }
 
 /* APP */
-#app {
-	padding-top: 10%;
-    width: 100vw;
-	justify-content: center;
-}
+
 #topspacer{
-	height: 15vh;
+	height: 8vh;
 	width: 100vw;
 }
 /*FLEX-GRID*/
@@ -115,7 +111,6 @@ a {
 	padding-bottom: 10px;
 	color: #FFFFFF;
 	background-color: #000000;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 .movie-poster {
@@ -201,16 +196,16 @@ a {
 }
 
 .floatbutton {
-	position: fixed;
+	position: absolute;
 	width: 60px;
 	height: 60px;
-	bottom: 40px;
-	right: 40px;
+	bottom: 20px;
+	right: 20px;
 	background-color: #1EAEDB;
 	color: #FFF;
 	border-radius: 50px;
 	text-align: center;
-	box-shadow: 2px 2px 3px #999
+	box-shadow: 0 2px 4px #222222;
 }
 
 
@@ -223,12 +218,7 @@ margin-top: 22px;
 /* DESKTOP SPECIFICS */
 
 @media screen and (min-width: 481px) {
-    #app {
-		justify-content: center;
-		align-self: center;
-		width: 100vw;
 
-    }
 	.flex-grid{
 		display: flex;
 		flex-direction: row;
@@ -299,7 +289,7 @@ margin-top: 22px;
 	}
 	.movie-card:hover {
 		cursor: pointer;
-		box-shadow: 8px 16px #222222;
+		box-shadow: 3px 5px 10px;
 	}
 	.movie-poster {
 		width: 100%;
