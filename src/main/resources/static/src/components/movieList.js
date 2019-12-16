@@ -6,18 +6,21 @@ export default {
 	},
 
 	template: `
-    <div class="row">
+    <div class="row movie-list">
       <movieCard :key="movie.imdbID"  :movieId="movie.imdbID" :moviePoster="movie.Poster" :movieTitle="movie.Title" v-for="movie in $store.state.searchResults" />
-       <div class="pagination row">
-        <button v-if="$store.state.currentPage>=2" @click="paginate(-1)">prev</button>
-        <button v-else disabled>prev</button>
-          <select @change="paginateHelper">
-            <option v-for="index in this.totalPages" :selected="$store.state.currentPage===index" :value="index">{{index}}</option>
-          </select>
-         
-			<button v-if="$store.state.currentPage<this.totalPages" @click="paginate(1)">next</button>
-			<button v-else disabled>next</button>
-        </div>
+       
+       <div class="pagination twelve columns">
+       		
+				<button v-if="$store.state.currentPage>=2" @click="paginate(-1)">prev</button>
+				<button v-else disabled>prev</button>
+				
+				  <select @change="paginateHelper">
+					<option v-for="index in this.totalPages" :selected="$store.state.currentPage===index" :value="index">{{index}}</option>
+				  </select>
+				 
+				<button v-if="$store.state.currentPage<this.totalPages" @click="paginate(1)">next</button>
+				<button v-else disabled>next</button>
+			</div>
       </div>`,
 
 	computed: {

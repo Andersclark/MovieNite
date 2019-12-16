@@ -1,5 +1,6 @@
 
 /* BASIC CSS */
+/* This CSS is mobile-first! */
 
 * {
 	box-sizing: border-box;
@@ -11,29 +12,14 @@ a {
 	color: inherit;
 }
 
-/* APP */
-
-#topspacer{
+#topspacer {
 	height: 8vh;
 	width: 100vw;
 }
-/*FLEX-GRID*/
-
-.flex-grid{
-	display: flex;
-	flex-flow: column wrap;
-}
-
 .pagination {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
+	padding-top: 5vh;
+	justify-content: space-evenly;
 }
-.col {
-	flex: 1;
-}
-
 /* APP CUSTOMS */
 .navbar {
 	display: none;
@@ -96,7 +82,8 @@ a {
 
 }
 .searchbutton{
-
+	background-color: #1EAEDB;
+	color: yellow;
 }
 .searchnoresults{
 	color: red;
@@ -106,9 +93,8 @@ a {
 /* MOVIE-LIST AND CARDS */
 
 .movie-card {
-	width: 100%;
 	max-height: 80vh;
-	padding-bottom: 10px;
+	margin: 2vw;
 	color: #FFFFFF;
 	background-color: #000000;
 }
@@ -117,34 +103,13 @@ a {
 	width: 100%;
 	max-height: 60%;
 	object-fit: cover;
-	margin-bottom: 10px;
 }
-.movie-text {
-	height: 35%;;
-	background-color: #000000;
-	border-radius: 0px 0px 15px 0px;
-}
+
 .movie-header {
 	font-weight: bolder;
-	font-size: small;
 	padding: 10px;
 }
-.movie-year{
-	font-weight: lighter;
-	font-size: small;
-	margin: 0;
-}
 
-/* FLEX GRID */
-
-.flex-grid {
-	display: flex;
-	flex-direction: column;
-}
-
-.col {
-	flex: 1;
-}
 
 /*    MOVIE DETAILS   */
 .movieDetails {
@@ -199,8 +164,8 @@ a {
 	position: absolute;
 	width: 60px;
 	height: 60px;
-	bottom: 20px;
-	right: 20px;
+	top: 50vh;
+	right: 40px;
 	background-color: #1EAEDB;
 	color: #FFF;
 	border-radius: 50px;
@@ -218,22 +183,10 @@ margin-top: 22px;
 /* DESKTOP SPECIFICS */
 
 @media screen and (min-width: 481px) {
-
-	.flex-grid{
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		max-width: 100%;
-		justify-content: space-evenly;
-		justify-self: center;
+	.columns {
+		margin: 0;
 	}
-
-	.col {
-		flex: 1;
-	}
-
 	.navbar {
-		display: block;
 		list-style-type: none;
 		background-color: #FFFFFF;
 		color: #000000;
@@ -250,17 +203,10 @@ margin-top: 22px;
 		padding-right: 20px;
 	}
 
-    .pagination {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        margin: 2rem;
-    }
-
     .pagination > h6 {
         margin-left: 5px;
         margin-right: 5px;
+
     }
 
     .header {
@@ -274,33 +220,28 @@ margin-top: 22px;
 		display: none;
 	}
 
-	.movie-list {
-		max-width: 100%;
-		padding-left: 10%;
-		padding-right: 10%;
-		margin-top: 15vh;
+	.row {
+		justify-content: space-evenly;
+		align-content: space-evenly;
 	}
 
 	.movie-card {
-		width: 15vw;
-		height: 25vw;
-		margin-left: 15px;
-		margin-bottom: 15px;
+		height: 40vh;
 	}
 	.movie-card:hover {
 		cursor: pointer;
-		box-shadow: 3px 5px 10px;
+		box-shadow: 3px 5px 10px #222222;
 	}
 	.movie-poster {
 		width: 100%;
-		height: 60%;
-		max-width: 10vw;
+		height: 65%;
 		max-height: 20vw;
 		object-fit: cover;
 		margin-bottom: 10px;
 	}
 
 	.moviedetails-poster {
+
 		object-fit: cover;
 		object-position: center;
 		margin: 0;

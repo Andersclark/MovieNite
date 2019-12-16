@@ -3,11 +3,16 @@ export default{
   props: ['moviePoster', 'movieTitle', 'movieId'],
 
   template: `
-  <router-link :to="'/movie/' + movieId" class="movie-card col" tag="div">
-    <img class="movie-poster" :src="moviePoster" alt="Movie poster"/>
-    <div class="movie-text">
-        <h3 class="movie-header">{{movieTitle}}</h3>
-    </div>
-  </router-link>
+  <div class="three columns">
+    <router-link :to="'/movie/' + movieId" class="movie-card" tag="div">
+      <div class="row">
+        <img class="movie-poster twelve columns" :src="moviePoster" alt="Movie poster"/>
+      </div>
+    
+      <div class="row">
+          <h6 class="movie-header twelve columns">{{movieTitle}}</h6>
+      </div>
+    </router-link>
+</div>
 `
 }

@@ -9,12 +9,8 @@ export default {
 
   template: `
     <div class="container">
-        <div class="row">
-          
             <searchField />
             <movieList />
-          
-      </div>
     </div>
   `
 };
