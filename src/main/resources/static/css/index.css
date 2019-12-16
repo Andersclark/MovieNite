@@ -55,9 +55,8 @@ a {
 	width: 75vw;
 	height: 100vh;
 	z-index: 200;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	background-color: #000000;
+	background-color: rgba(255, 255, 255, 0.9);
+	box-shadow: 3px 3px #222222;
 	color: #FFFFFF;
 }
 
@@ -198,7 +197,7 @@ a {
 	}
 
 	.side-bar {
-		display: none;
+
 	}
 
 	.row {

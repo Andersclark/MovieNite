@@ -6,15 +6,18 @@ import moviedetails from "./views/moviedetails.js";
 export const router = new VueRouter({
   mode: 'history',
   routes: [
-    { 
+    {
+      name:"home",
       path: '/', 
       component: home
     },
-    { 
+    {
+      name: "about",
       path: '/about', 
       component: about
     },
     {
+      name: "apidoc",
       path: '/apidoc',
       component: apidoc
     },
