@@ -6,8 +6,8 @@ export default {
     },
 
     template: `
-            <div class="row">
-                <div v-if="showEventForm" class="movie-event movie-event-form eight columns">
+            <template>
+                <div v-if="showEventForm" class="eleven columns">
                     
                     <h4>New movienight</h4>
                         <input v-model="event.name" type="text" placeholder="event name">
@@ -17,15 +17,14 @@ export default {
                         <OAuthLogin/>
                 </div>
                 
-                <div v-else class="movie-event eight columns">
+                <div v-else class="eleven columns">
                    <h5>{{event.name}}</h5>
                    <h5>{{event.time}}</h5>
                    <p>{{event.description}}</p>
                    <h5>!!PUT USERLIST HERE !!</h5>
                    <button class="button-primary" v-on:click="showEventForm = true">Edit</button>
                 </div>
-            
-            </div>
+            </template>
 `,
     data() {
         return {

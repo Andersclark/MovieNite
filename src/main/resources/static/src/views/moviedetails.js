@@ -18,14 +18,14 @@ export default {
                     <li><strong>Directed by:</strong> {{movie.Director}}</li>
                     <li><strong>Actors: </strong>{{movie.Actors}}</li>
                 </ul>
-                <a v-on:click="createEvent" class="floatbutton">
-                    <i v-on:click="createEvent" class="fa fa-calendar-plus plusbutton"></i>
-                </a>
+                <button v-on:click="createEvent" class="button-primary">Make a movie night</button>
     
                 <h5 class="moviedetails-plotheader">Plot</h5>
                 <p>{{movie.Plot}}</p>
             </div>
-                <createevent v-if="showEvent" :imdbID="movie.imdbID"/>
+        </div>
+        <div class="row">
+         <createevent v-if="showEvent" :imdbID="movie.imdbID"/>
         </div>
     </div>
   `,
