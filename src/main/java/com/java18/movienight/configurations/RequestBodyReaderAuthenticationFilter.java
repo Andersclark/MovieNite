@@ -48,6 +48,10 @@ public class RequestBodyReaderAuthenticationFilter extends UsernamePasswordAuthe
         authRequest = objectMapper.readValue(requestBody, LoginRequest.class);
       }
 
+      if(authRequest.username == null) {
+        throw new InternalAuthenticationServiceException(ERROR_MESSAGE);
+      }
+
       UsernamePasswordAuthenticationToken token
               = new UsernamePasswordAuthenticationToken(authRequest.username, "password", List.of(new SimpleGrantedAuthority("USER")));
 
