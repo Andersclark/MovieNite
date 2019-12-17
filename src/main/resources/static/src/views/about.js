@@ -11,12 +11,17 @@ export default {
         <div class="row">
             <div class="one-half column">
                 <h4>About</h4>
-                <p>Lorem ipsum and so on...</p>
-                
+                <button @click="getEvents">Get Events</button>
             </div>
         </div>
     </div>
   `,
+  methods: {
+    async getEvents() {
+      let result = await fetch('/api/calendar')
+      console.log(await result.text());
+    }
+  },
   computed: {
     greeting() {
       return this.$store.state.greeting

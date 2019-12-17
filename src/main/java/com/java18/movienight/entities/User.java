@@ -12,6 +12,7 @@ import java.util.List;
 public class User {
   @Id
   private ObjectId _id;
+  private String userId;
   private String email;
   private String username;
   private String pictureUrl;
@@ -22,8 +23,9 @@ public class User {
 
   public User() {}
 
-  public User(ObjectId _id, String username, String email, String pictureUrl, String accessToken, String refreshToken, long tokenExpires, String ...roles) {
+  public User(ObjectId _id, String userId, String username, String email, String pictureUrl, String accessToken, String refreshToken, long tokenExpires, String ...roles) {
     this._id = _id;
+    this.userId = userId;
     this.username = username;
     this.email = email;
     this.pictureUrl = pictureUrl;
@@ -87,6 +89,14 @@ public class User {
   @JsonProperty
   public void setTokenExpires(long tokenExpires) {
     this.tokenExpires = tokenExpires;
+  }
+  @JsonIgnore
+  public String getUserId() {
+    return userId;
+  }
+  @JsonProperty
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
   public List<String> getRoles() {
