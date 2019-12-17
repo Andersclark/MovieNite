@@ -17,11 +17,9 @@ public class Event implements Serializable {
 
     public String _id;
     public String movieId;
-    public Movie movie;
     public String organizerId;
     public User organizer;
     public String[] guestIds;
-    public User[] guests;
     public int duration;
     public Date startTime;
     public String description;
