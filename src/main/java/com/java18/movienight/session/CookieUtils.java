@@ -1,12 +1,17 @@
 package com.java18.movienight.session;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 public class CookieUtils {
+  @Autowired
+  static JwtTokenProvider jwtTokenProvider;
 
   /**
    * Meant to hold the JWT cookie
@@ -17,8 +22,7 @@ public class CookieUtils {
    * Creates a cookie to hold the JWT
    */
   public static void addJWTCookie(HttpServletResponse response, String username) {
-    // TODO: Create a JWT here using the username instead of just "ABCDEFGH"
-    addCookie(response, COOKIE_NAME, "ABCDEFGH");
+    addCookie(response, COOKIE_NAME, jwtTokenProvider.createToken(username, List.of("USER")));
   }
 
   /**

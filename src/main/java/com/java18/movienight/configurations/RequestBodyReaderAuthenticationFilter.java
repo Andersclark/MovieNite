@@ -3,8 +3,10 @@ package com.java18.movienight.configurations;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java18.movienight.entities.LoginRequest;
 import com.java18.movienight.session.CookieUtils;
+import com.java18.movienight.session.JwtTokenProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -48,15 +50,13 @@ public class RequestBodyReaderAuthenticationFilter extends UsernamePasswordAuthe
         authRequest = objectMapper.readValue(requestBody, LoginRequest.class);
       }
 
-
-
       UsernamePasswordAuthenticationToken token
               = new UsernamePasswordAuthenticationToken(authRequest.username, "password", List.of(new SimpleGrantedAuthority("USER")));
 
       // Allow subclasses to set the "details" property
       setDetails(request, token);
 
-      CookieUtils.addCookie(response, "OAuthCake", "ABCDEFGH");
+      CookieUtils.addJWTCookie(response, authRequest.username);
 
       return this.getAuthenticationManager().authenticate(token);
     } catch(IOException e) {

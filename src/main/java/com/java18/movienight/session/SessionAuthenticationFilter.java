@@ -1,4 +1,5 @@
 package com.java18.movienight.session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -19,13 +20,15 @@ import java.util.stream.Stream;
 
 public class SessionAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
+  @Autowired
+  JwtTokenProvider jwtTokenProvider;
+
   public SessionAuthenticationFilter() {
     super(new AntPathRequestMatcher("**"));
   }
 
   private boolean authenticateCookieValue(String cookie) {
-    // TODO: Verify the JWT here instead of "ABCDEFGH".
-    return cookie.equals("ABCDEFGH");
+    return jwtTokenProvider.validateToken(cookie);
   }
 
   @Override
@@ -62,7 +65,7 @@ public class SessionAuthenticationFilter extends AbstractAuthenticationProcessin
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-    Optional<Cookie> cookie = CookieUtils.getCookie(request, "OAuthCake");
+    Optional<Cookie> cookie = CookieUtils.getCookie(request);
 
     if (cookie.isPresent()) {
       String cookieVal = cookie.get().getValue();

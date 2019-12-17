@@ -51,29 +51,24 @@ public class AuthController {
   }
 
   @GetMapping("/whoami")
-  public User whoAmI() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String username;
-    if (principal instanceof UserDetails) {
-      username = ((UserDetails)principal).getUsername();
-    } else {
-      username = principal.toString();
-    }
+  public ResponseEntity<User> whoAmI() {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
     System.err.println(username);
     if (username == null || username.equals("anonymousUser")) {
-      return null;
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not signed in!");
     }
 
-    return userRepo.findByEmail(username);
+    return new ResponseEntity<>(userRepo.findByEmail(username), HttpStatus.OK);
   }
 
   @PostMapping("/storeauthcode") // @CookieValue(value = "username", defaultValue = "Atta") String username
-  public User storeauthcode(@RequestBody String code, @RequestHeader("X-Requested-With") String encoding) {
+  public ResponseEntity<User> storeauthcode(@RequestBody String code, @RequestHeader("X-Requested-With") String encoding) {
     if (encoding == null || encoding.isEmpty()) {
       // Without the `X-Requested-With` header, this request could be forged. Aborts.
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error, wrong headers") ;
     }
 
-    return oAuthService.authorizeWithGoogle(code);
+    return new ResponseEntity<>(oAuthService.authorizeWithGoogle(code), HttpStatus.OK);
   }
 }
