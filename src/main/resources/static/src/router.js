@@ -2,6 +2,7 @@ import home from './views/home.js'
 import about from './views/about.js'
 import apidoc from './views/apidoc.js'
 import moviedetails from "./views/moviedetails.js";
+import missingPage from "./views/missingPage.js";
 
 export const router = new VueRouter({
   mode: 'history',
@@ -26,6 +27,10 @@ export const router = new VueRouter({
       path: '/movie/:id',
       component: moviedetails,
       params: true
+    },
+    {
+      path: '*',
+      component: missingPage,
     }
   ]
 });
