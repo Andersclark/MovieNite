@@ -23,8 +23,8 @@ public class SessionAuthenticationFilter extends AbstractAuthenticationProcessin
     super(new AntPathRequestMatcher("**"));
   }
 
-  private boolean authenticateCookieValue(String cookie) {
-    return JwtTokenProvider.get().validateToken(cookie);
+  private String authenticateCookieValue(HttpServletResponse response, String cookie) {
+    return JwtTokenProvider.get().validateToken(response, cookie);
   }
 
   @Override
@@ -65,11 +65,13 @@ public class SessionAuthenticationFilter extends AbstractAuthenticationProcessin
 
     if (cookie.isPresent()) {
       String cookieVal = cookie.get().getValue();
-//            System.out.println("CustomFilter Cookie found: " + cookie);
-      if (authenticateCookieValue(cookieVal)) {
+
+      cookieVal = authenticateCookieValue(response, cookieVal);
+      if (!cookieVal.equals("invalid cookie")) {
         Authentication authentication = new SessionAuthentication(cookieVal);
         authentication.setAuthenticated(true);
 
+        System.err.println(cookieVal);
         return this.getAuthenticationManager().authenticate(authentication);
       } else {
         CookieUtils.removeJWTCookie(request, response);
@@ -77,7 +79,7 @@ public class SessionAuthenticationFilter extends AbstractAuthenticationProcessin
         // TODO: Choose Option A or B then comment/remove the unnecessary code in this block.
 
         // Option A: FORCE LOGOUT (throw an error)
-        throw new BadCredentialsException("Looks like you've been tampering with your JWT! Refresh (F5) to login.");
+//        throw new BadCredentialsException("Looks like you've been tampering with your JWT! Refresh (F5) to login.");
 
         // Option B: Do nothing
       }

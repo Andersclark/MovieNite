@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.security.core.Authentication;
 
 import java.security.Principal;
-import java.util.Set;
+import java.util.List;
 
 public class User {
   @Id
@@ -15,7 +15,7 @@ public class User {
   private String email;
   private String username;
   private String pictureUrl;
-  private Set<String> roles;
+  private List<String> roles;
   private String accessToken;
   private String refreshToken;
   private long tokenExpires;
@@ -30,7 +30,7 @@ public class User {
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
     this.tokenExpires = tokenExpires;
-    this.roles = roles.length > 0 ? Set.of(roles) : Set.of("USER");
+    this.roles = roles.length > 0 ? List.of(roles) : List.of("USER");
   }
 
   public String get_id() {
@@ -89,11 +89,11 @@ public class User {
     this.tokenExpires = tokenExpires;
   }
 
-  public Set<String> getRoles() {
+  public List<String> getRoles() {
     return roles;
   }
 
-  public void setRoles(Set<String> roles) {
+  public void setRoles(List<String> roles) {
     this.roles = roles;
   }
 

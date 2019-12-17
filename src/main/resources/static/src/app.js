@@ -18,9 +18,10 @@ export default {
     </div>
   `,
   async created() {
-    let result = await fetch('auth/whoami')
-    result = await result.json();
+    let user = await fetch('api/auth/whoami')
+    user = await user.json();
 
-    console.log('/whoami', result);
+    console.log('/whoami', user);
+    this.$store.commit('setUser', user)
   }
 }

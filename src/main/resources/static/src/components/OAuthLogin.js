@@ -19,7 +19,7 @@ export default {
         this.displayLoginButton = false;
 
         // Send the code to the server
-        let result = await fetch("/auth/storeauthcode", {
+        let result = await fetch("api/auth/storeauthcode", {
           method: "POST",
           headers: {
             "Content-Type": "application/octet-stream; charset=utf-8",
