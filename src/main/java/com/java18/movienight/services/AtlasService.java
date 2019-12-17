@@ -1,13 +1,12 @@
 package com.java18.movienight.services;
 
 import com.java18.movienight.models.Movie;
-import com.java18.movienight.models.SearchResult;
 import com.java18.movienight.repositories.AtlasMovieRepository;
+import com.java18.movienight.models.SearchResult;
 import com.java18.movienight.repositories.SearchResultRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.util.BsonUtils;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
