@@ -1,6 +1,7 @@
 export const store = new Vuex.Store({
   state: {
     user: null,
+    displayLoginButton: false,
     isSideBarOpen: false,
     searchResults: {},
     totalResults: 0,
@@ -10,6 +11,9 @@ export const store = new Vuex.Store({
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+    setDisplayLoginButton(state, val) {
+      state.displayLoginButton = val;
     },
     toggleSideBar(state) {
       state.isSideBarOpen = !state.isSideBarOpen;

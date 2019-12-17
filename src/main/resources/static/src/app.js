@@ -22,6 +22,8 @@ export default {
     user = await user.json();
 
     console.log('/whoami', user);
-    this.$store.commit('setUser', user)
+
+    user.email && this.$store.commit('setUser', user)
+    user.error && this.$store.commit('setDisplayLoginButton', true)
   }
 }

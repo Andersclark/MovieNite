@@ -1,12 +1,7 @@
 export default {
   template: `
-    <button v-if="displayLoginButton" id="signinButton" @click="onSignInClick">Link my Google Calendar</button>
+    <button v-if="$store.state.displayLoginButton" id="signinButton" @click="onSignInClick">Link my Google Calendar</button>
   `,
-  data() {
-    return {
-      displayLoginButton: true
-    };
-  },
   methods: {
     onSignInClick() {
       this.$auth2.grantOfflineAccess().then(this.signInCallback);
@@ -15,9 +10,6 @@ export default {
       console.log("authResult", authResult);
 
       if (authResult["code"]) {
-        // Hide the sign-in button now that the user is authorized
-        this.displayLoginButton = false;
-
         // Send the code to the server
         let result = await fetch("api/auth/storeauthcode", {
           method: "POST",
@@ -32,9 +24,9 @@ export default {
 
         console.log("/storeauthcode:", result);
 
-        if(!result) return
+        if(result.error) return
 
-        let login = await fetch("/login", {
+        let user = await fetch("/login", {
           method: "POST",
           headers: {
             "Content-Type": "Application/json"
@@ -45,9 +37,13 @@ export default {
           })
         });
 
-        login = await login.json();
+        user = await user.json();
 
-        console.log("/login", login);
+        if(user.email) {
+          this.$store.commit('setUser', user)
+          this.$store.commit('setDisplayLoginButton', false)
+        }
+
       } else {
         // There was an error.
         console.error("OAuth error");
