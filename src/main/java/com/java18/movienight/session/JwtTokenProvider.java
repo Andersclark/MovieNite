@@ -2,10 +2,7 @@ package com.java18.movienight.session;
 
 import com.java18.movienight.configurations.MyUserDetailsService;
 import com.java18.movienight.repositories.UserRepo;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,9 +23,8 @@ import java.util.stream.Collectors;
 public class JwtTokenProvider {
 
   private final static JwtTokenProvider singleton = new JwtTokenProvider();
-  private String secretKey = "SuperUniqueSecretKey";
-//  private long validityInMilliseconds = 3600000; // 1h
-  private long validityInMilliseconds = 5000; // 1h
+  private String secretKey = "wef:23R$32Lf32@L32LM£:f2?L34593%#¤%93945#¤%KepowjefWKEFmcke";
+  private long validityInMilliseconds = 1800000; // 30min
 
   @Autowired
   private MyUserDetailsService userDetails;
@@ -86,17 +82,25 @@ public class JwtTokenProvider {
       Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
       return token;
     } catch (JwtException | IllegalArgumentException e) {
-      Claims claims = Jwts.parser().setSigningKey(secretKey).setAllowedClockSkewSeconds(604800).parseClaimsJws(token).getBody();
-
-      // if jwt token expired in last 7 days, renew the token
-      if(claims.getExpiration().getTime() + 604800000 > Instant.now().toEpochMilli()) {
-        System.out.println("Renewing expired token: " + claims.getSubject());
-        String jwtToken = createToken(claims.getSubject(), List.of("USER"));
-        CookieUtils.addCookie(response, "JWT_SESSION", jwtToken);
-        return jwtToken;
-      }
-      return "invalid cookie";
+      return refreshToken(response, token);
     }
+  }
+
+  private String refreshToken(HttpServletResponse response, String token) {
+
+    Claims claims = null;
+    try {
+      claims = Jwts.parser().setSigningKey(secretKey).setAllowedClockSkewSeconds(604800).parseClaimsJws(token).getBody();
+    } catch (Exception e) {
+      return "invalid token";
+    }
+    // if jwt token expired in last 7 days, renew the token
+    if(claims.getExpiration().getTime() + 604800000 > Instant.now().toEpochMilli()) {
+      String jwtToken = createToken(claims.getSubject(), List.of("USER"));
+      CookieUtils.addCookie(response, "JWT_SESSION", jwtToken);
+      return jwtToken;
+    }
+    return token;
   }
 
 }

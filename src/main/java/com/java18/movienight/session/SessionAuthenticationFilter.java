@@ -1,6 +1,5 @@
 package com.java18.movienight.session;
 
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -67,24 +66,16 @@ public class SessionAuthenticationFilter extends AbstractAuthenticationProcessin
       String cookieVal = cookie.get().getValue();
 
       cookieVal = authenticateCookieValue(response, cookieVal);
-      if (!cookieVal.equals("invalid cookie")) {
+      if (!cookieVal.equals("invalid token")) {
         Authentication authentication = new SessionAuthentication(cookieVal);
         authentication.setAuthenticated(true);
 
-        System.err.println(cookieVal);
         return this.getAuthenticationManager().authenticate(authentication);
       } else {
+        // if cookie is invalid, user needs to re-authenticate
         CookieUtils.removeJWTCookie(request, response);
-
-        // TODO: Choose Option A or B then comment/remove the unnecessary code in this block.
-
-        // Option A: FORCE LOGOUT (throw an error)
-//        throw new BadCredentialsException("Looks like you've been tampering with your JWT! Refresh (F5) to login.");
-
-        // Option B: Do nothing
       }
     }
-
     return null;
   }
 }
