@@ -10,17 +10,16 @@ export default {
   },
 
   template: `
-    <div id="app">
+    <div id="app" class="container">
+    <div id="topspacer"></div>
       <navBar />
       <sideBar />
-      <backdrop>
-        <router-view />
-      </backdrop>
+      <router-view />
     </div>
   `,
   async created() {
     let result = await fetch('auth/whoami')
-    result = await result.json()
+    result = await result.json();
 
     console.log('/whoami', result);
   }

@@ -1,11 +1,27 @@
 import movieCard from './movieCard.js';
-import searchField from './searchField.js';
 
 export default {
 	components: {
-		searchField,
 		movieCard,
 	},
+
+	template: `
+    <div class="row movie-list">
+      <movieCard :key="movie.imdbID"  :movieId="movie.imdbID" :moviePoster="movie.Poster" :movieTitle="movie.Title" v-for="movie in $store.state.searchResults" />
+       
+       <div class="pagination twelve columns">
+       		
+				<button v-if="$store.state.currentPage>=2" @click="paginate(-1)">prev</button>
+				<button v-else disabled>prev</button>
+				
+				  <select @change="paginateHelper">
+					<option v-for="index in this.totalPages" :selected="$store.state.currentPage===index" :value="index">{{index}}</option>
+				  </select>
+				 
+				<button v-if="$store.state.currentPage<this.totalPages" @click="paginate(1)">next</button>
+				<button v-else disabled>next</button>
+			</div>
+      </div>`,
 
 	computed: {
 		totalPages() {
@@ -30,28 +46,11 @@ export default {
       let newPage;
 			if (event.target.value < this.$store.state.currentPage) {
         newPage = this.$store.state.currentPage - event.target.value;
-        this.paginate(-newPage);
-			}else{
-        newPage = event.target.value-this.$store.state.currentPage;
-        this.paginate(newPage)
+        		this.paginate(-newPage);
+			} else {
+				newPage = event.target.value-this.$store.state.currentPage;
+				this.paginate(newPage)
       }
 		},
 	},
-
-	template: `
-  <div>
-    <searchField/>
-    <div class="movie-list">
-      <movieCard :key="movie.imdbID" :moviePoster="movie.Poster" :movieTitle="movie.Title" v-for="movie in $store.state.searchResults" />
-      <div class="pagination" v-if="this.totalPages>1">
-        <button v-if="$store.state.currentPage>=2" @click="paginate(-1)">prev</button>
-        <button v-else disabled>prev</button>
-          <select @change="paginateHelper">
-            <option v-for="index in this.totalPages" :selected="$store.state.currentPage===index" :value="index">{{index}}</option>
-          </select>
-        <button v-if="$store.state.currentPage<this.totalPages" @click="paginate(1)">next</button>
-        <button v-else disabled>next</button>
-      </div>
-    </div>
-  </div>`,
 };

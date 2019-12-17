@@ -7,10 +7,14 @@ export default {
     changeMessage
   },
   template: `
-    <div id="about">
-      <h2>About stuff</h2>
-      <message :greeting="greeting" />
-      <changeMessage />
+    <div id="about" class="container">
+        <div class="row">
+            <div class="one-half column">
+                <h4>About</h4>
+                <p>Lorem ipsum and so on...</p>
+                
+            </div>
+        </div>
     </div>
   `,
   computed: {

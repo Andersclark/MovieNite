@@ -1,3 +1,30 @@
+
+/* BASIC CSS */
+/* This CSS is mobile-first! */
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+	font-weight: bold;
+	text-decoration: none;
+	color: inherit;
+}
+
+#topspacer {
+	height: 8vh;
+	width: 100vw;
+}
+.pagination {
+	padding-top: 5vh;
+	justify-content: space-evenly;
+}
+/* APP CUSTOMS */
+.navbar {
+	display: none;
+}
+
 .nightcode {
 	color: #0fa0ce;
 	background-color: #333333;
@@ -5,18 +32,7 @@
 }
 .nightpre {
 	border-radius: 10px;
-	background-color: #333333;
-}
-
-.backdrop {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background-color: white;
-	opacity: 1;
-	z-index: 100;
+	background-color:#333333;
 }
 
 .header {
@@ -27,83 +43,191 @@
 }
 
 .hamburger {
-	display: none;
+	display: block;
+	position: fixed;
+	left: 25px;
+	top: 25px;
 }
+
 .side-bar {
-	display: none;
+	display: block;
+	position: fixed;
+	width: 75vw;
+	height: 100vh;
+	z-index: 200;
+	background-color: rgba(255, 255, 255, 0.9);
+	box-shadow: 3px 3px #222222;
+	color: #FFFFFF;
 }
+
 .link-container {
 	display: flex;
-	height: 100vh;
-	background: gold;
+	height: 100%;
 	flex-direction: column;
+	color: #222222;
+	font-weight: bolder;
+	padding: 10%;
+}
+#sidebarWrapper{
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0 0 0 0);
 }
 
-.movie-list {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+#searchField{
+	width: 80vw;
+	justify-self: center;
+	margin-bottom: 10vh;
+
 }
+.searchbutton{
+	background-color: #1EAEDB;
+	color: yellow;
+}
+.searchnoresults{
+	color: red;
+	font-style: italic;
+}
+
+/* MOVIE-LIST AND CARDS */
 
 .movie-card {
-	width: 25%;
-	border: 1px solid black;
-	border-radius: 5px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
-	margin: auto;
+	max-height: 80vh;
+	margin: 2vw;
+	color: #FFFFFF;
+	background-color: #000000;
 }
 
 .movie-poster {
-	height: 100%;
 	width: 100%;
-}
-.pagination {
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-	margin: 2rem;
+	max-height: 60%;
+	object-fit: cover;
 }
 
-.pagination * {
-	padding: 0;
+.movie-header {
+	font-weight: bolder;
+	padding: 10px;
+}
+
+
+/*    MOVIE DETAILS   */
+.movieDetails {
+	background-color: #000000;
+	color: #FFFFFF;
+	width: 100%;
+	min-height: 100vh;
+}
+
+.moviedetails-card {
+	background-color: #000000;
+	color: #FFFFFF;
+	padding: 20px;
 	margin: 0;
 }
 
-.pagination > h6 {
-	margin-left: 2rem;
-	margin-right: 2rem;
+.moviedetails-header {
+	font-size: 1.8em;
 }
-@media screen and (max-width: 750px) {
-	.header {
-		display: none;
+
+.moviedetails-poster {
+	object-fit: cover;
+	object-position: center;
+	width: 100%;
+	height: 50vh;
+}
+
+.moviedetails-list {
+	list-style: none;
+	font-weight: lighter;
+}
+
+.moviedetails-plotheader {
+	font-weight: bolder;
+	margin-bottom: 0;
+}
+
+.movie-event{
+	padding: 15%;
+	min-height: 100vh;
+	background: #333333;
+}
+
+.movie-event-form {
+
+}
+.movie-event-form input{
+    color: #000000;
+}
+
+
+/* DESKTOP SPECIFICS */
+
+@media screen and (min-width: 481px) {
+	.columns {
+		margin: 0;
+	}
+	.navbar {
+		list-style-type: none;
+		background-color: #FFFFFF;
+		color: #000000;
+		justify-content: center;
+		display: flex;
+		flex-direction: row;
+
+	}
+	.nightnavlink {
+		display: inline;
+		font-weight: bolder;
+		font-size: 1.5em;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+    .pagination > h6 {
+        margin-left: 5px;
+        margin-right: 5px;
+
+    }
+
+    .header {
+		display: block;
 	}
 	.hamburger {
-		display: block;
-		position: fixed;
-		left: 20px;
-		top: 20px;
-		cursor: pointer;
+		display: none;
 	}
+
 	.side-bar {
-		display: block;
-		position: fixed;
-		width: 250px;
-		height: 100vh;
-		z-index: 200;
+
 	}
-	.movie-list {
-		flex-direction: column;
-		margin-top: 10%;
-		align-items: center;
+
+	.row {
+		justify-content: space-evenly;
+		align-content: space-evenly;
 	}
+
 	.movie-card {
-		width: 80%;
+		height: 40vh;
 	}
-	.pagination {
-		width: 30%;
+	.movie-card:hover {
+		cursor: pointer;
+		box-shadow: 3px 5px 10px #222222;
+	}
+	.movie-poster {
+		width: 100%;
+		height: 65%;
+		max-height: 20vw;
+		object-fit: cover;
+		margin-bottom: 10px;
+	}
+
+	.moviedetails-poster {
+
+		object-fit: cover;
+		object-position: center;
+		margin: 0;
+	}
+	.floatbutton:hover{
+		cursor: pointer;
+		color: yellow;
 	}
 }
