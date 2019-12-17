@@ -1,5 +1,5 @@
 package com.java18.movienight.session;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -16,19 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Stream;
 
 public class SessionAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
-
-  @Autowired
-  JwtTokenProvider jwtTokenProvider;
 
   public SessionAuthenticationFilter() {
     super(new AntPathRequestMatcher("**"));
   }
 
   private boolean authenticateCookieValue(String cookie) {
-    return jwtTokenProvider.validateToken(cookie);
+    return JwtTokenProvider.get().validateToken(cookie);
   }
 
   @Override

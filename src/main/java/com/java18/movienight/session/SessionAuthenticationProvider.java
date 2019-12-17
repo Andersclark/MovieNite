@@ -17,7 +17,7 @@ public class SessionAuthenticationProvider extends AbstractUserDetailsAuthentica
 
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-    return new SessionAuthentication(authentication.getName());
+    return new SessionAuthentication(((SessionAuthentication)authentication).getCookie());
   }
 
   @Override

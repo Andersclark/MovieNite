@@ -24,16 +24,24 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenProvider {
 
+  private final static JwtTokenProvider singleton = new JwtTokenProvider();
   private String secretKey = "SuperUniqueSecretKey";
-
   private long validityInMilliseconds = 3600000; // 1h
 
   @Autowired
   private MyUserDetailsService userDetails;
 
+  private JwtTokenProvider() {
+    init();
+  }
+
   @PostConstruct
   protected void init() {
     secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+  }
+
+  public static JwtTokenProvider get() {
+    return singleton;
   }
 
   public String createToken(String email, List<String> roles) {
@@ -46,12 +54,16 @@ public class JwtTokenProvider {
     Date now = new Date();
     Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-    return Jwts.builder()
+    String jwtToken = Jwts.builder()
             .setClaims(claims)
             .setIssuedAt(now)
             .setExpiration(validity)
             .signWith(SignatureAlgorithm.HS256, secretKey)
             .compact();
+
+            System.err.println("createToken(): " + jwtToken);
+
+    return jwtToken;
   }
 
   public Authentication getAuthentication(String token) {
@@ -60,8 +72,6 @@ public class JwtTokenProvider {
   }
 
   public String getEmail(String token) {
-    System.err.println("JWT expiration: " + Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getExpiration());
-
     return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
   }
 
@@ -74,6 +84,7 @@ public class JwtTokenProvider {
   }
 
   public boolean validateToken(String token) {
+    System.err.println("validateToken(): " + getEmail(token));
     try {
       Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
       return true;

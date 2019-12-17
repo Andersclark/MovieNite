@@ -54,7 +54,6 @@ public class AuthController {
   public ResponseEntity<User> whoAmI() {
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-    System.err.println(username);
     if (username == null || username.equals("anonymousUser")) {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not signed in!");
     }

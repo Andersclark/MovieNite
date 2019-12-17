@@ -79,7 +79,6 @@ public class OAuthService {
     System.out.println("givenName: " + givenName);
 
     User user = new User(ObjectId.get(), name, email, pictureUrl, accessToken, refreshToken, expiresAt);
-    // TODO: Fix this if
     User dbUser = userService.findByEmail(email);
     System.out.println(dbUser);
     if(dbUser == null) {

@@ -1,8 +1,5 @@
 package com.java18.movienight.session;
 
-import com.java18.movienight.entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,8 +10,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class SessionAuthentication implements Authentication {
-  @Autowired
-  JwtTokenProvider jwtTokenProvider;
 
   private String cookie = "";
   private boolean authenticated = false;
@@ -23,7 +18,7 @@ public class SessionAuthentication implements Authentication {
 
   public SessionAuthentication(String cookie){
     this.cookie = cookie;
-    userDetails = toUserDetails(jwtTokenProvider.getEmail(cookie));
+    userDetails = toUserDetails(JwtTokenProvider.get().getEmail(cookie));
   }
 
   private UserDetails toUserDetails(String email) {
@@ -66,4 +61,10 @@ public class SessionAuthentication implements Authentication {
   public String getName() {
     return userDetails.getUsername();
   }
+
+  public String getCookie() {
+    return cookie;
+  }
+
+
 }

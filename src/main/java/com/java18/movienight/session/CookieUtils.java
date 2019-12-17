@@ -1,7 +1,5 @@
 package com.java18.movienight.session;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +8,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class CookieUtils {
-  @Autowired
-  static JwtTokenProvider jwtTokenProvider;
 
   /**
    * Meant to hold the JWT cookie
@@ -22,14 +18,13 @@ public class CookieUtils {
    * Creates a cookie to hold the JWT
    */
   public static void addJWTCookie(HttpServletResponse response, String username) {
-    addCookie(response, COOKIE_NAME, jwtTokenProvider.createToken(username, List.of("USER")));
+    addCookie(response, COOKIE_NAME, JwtTokenProvider.get().createToken(username, List.of("USER")));
   }
 
   /**
    * Creates a custom cookie
    */
   public static void addCookie(HttpServletResponse response, String name, String value) {
-    // TODO: add an Expiration date.
     response.addCookie(new Cookie(name, value));
   }
 
