@@ -33,10 +33,8 @@ public class OAuthService {
     }
   }
 
-  public void refreshAccessToken(User user) {
+  public void refreshAccessToken(User user, String accessToken) {
     long now = Instant.now().toEpochMilli();
-    GoogleCredential credential = getRefreshedCredentials(user.getRefreshToken());
-    String accessToken = credential.getAccessToken();
     user.setAccessToken(accessToken);
     user.setTokenExpires(now);
     userService.updateUser(user);

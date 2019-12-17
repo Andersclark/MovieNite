@@ -18,8 +18,14 @@ export default {
   `,
   methods: {
     async getEvents() {
-      let result = await fetch('/api/calendar')
-      console.log(await result.text());
+      
+      let result = await fetch('/api/calendar?duration=135')
+      result = await result.json()
+
+      for(let time of result) {
+        console.log(new Date(time))
+      }
+
     }
   },
   computed: {
