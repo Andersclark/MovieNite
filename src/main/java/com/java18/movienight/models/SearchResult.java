@@ -1,6 +1,5 @@
 package com.java18.movienight.models;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,8 +30,6 @@ public class SearchResult implements Serializable {
     public int getTotalResults(){
         return totalResults;
     }
-
-
 
     public void setSearchString(String searchString) {
         this.searchString = searchString.trim();
