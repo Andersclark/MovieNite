@@ -165,7 +165,19 @@ a {
 	color: #000000;
 	background-color: #FFFFFF;
 }
-
+.aboutsectionheader{
+	display: flex;
+	justify-content: space-between;
+	align-content: center;
+	background-color: #222222;
+	color: #0fa0ce;
+	padding: 10px;
+	border-radius: 15px;
+}
+.aboutsectionheader:hover {
+	color: #FFFFFF;
+	cursor: pointer;
+}
 
 /* DESKTOP SPECIFICS */
 

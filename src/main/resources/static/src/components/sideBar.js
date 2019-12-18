@@ -4,7 +4,7 @@ export default {
 	  <div v-if="$store.state.isSideBarOpen" class="side-bar row">
 		<div class="link-container eleven columns">
 			<button @click="navHome"  style="margin-bottom: 10px">Home</button>
-			<button @click="navAbout" style="margin-bottom: 10px">About</button>
+			<button @click="navAbout" style="margin-bottom: 10px">About web security</button>
 			<button @click="navApi" style="margin-bottom: 10px">API</button>   
 		</div>		
 	</div>
@@ -12,7 +12,7 @@ export default {
 
 	methods: {
 		navHome: function() {
-			this.$router.push('home');
+			this.$router.push('/');
 			this.$store.commit('toggleSideBar');
 		},
 		navAbout() {
