@@ -24,16 +24,19 @@ export default {
                 </select> 
                 
                 <button @click="getTimes">Check calendar openings</button>
-                <button class="button-primary" v-on:click="flipEventForm">Save</button>
+                <button class="button-primary" v-on:click="saveEvent">Save</button>
             </div>
         </template>
         
         <div v-show="finalizedForm" class="eleven columns">
             <h5>{{event.movie}} -night!</h5>
-            <h5>Time: {{event.startTime}}</h5>
-            <h5>Location: {{event.location}}</h5>
+            <p>Time: {{event.startTime}} - </p>
+            <p>Duration: {{event.duration}}</p>
+            <p>Location: {{event.location}}</p>
             <p>Description: {{event.description}}</p>
-            <h5>Participants: !!PUT USERLIST HERE !!</h5>
+            <ul>Participants: 
+                <li>{{event.organizer}}</li>
+            </ul>
             <button class="button-primary" v-on:click="flipEventForm">Edit</button>
         </div>
 </div>
@@ -42,15 +45,14 @@ export default {
         return {
             finalizedForm: false,
             event: {
-                _id: '',
                 movieId: this.imdbID,
-                organizerId: '',
-                organizer: '',
+                organizerId: 'organizerID',
+                organizer: 'organizer',
                 guestIds: [],
                 duration: this.runtime,
-                startTime: '',
-                description: '',
-                location: '',
+                startTime: new Date(),
+                description: 'description',
+                location: 'location',
                 movie: this.title,
             },
             calendarOpenings: [],
@@ -60,15 +62,9 @@ export default {
         showEventForm: function () {
             return !this.$store.state.displayLoginButton;
         },
+
     },
     methods: {
-        flipEventForm: function () {
-            this.finalizedForm = !this.finalizedForm;
-        },
-        finalizeEvent: function () {
-            this.event.organizerId = this.$store.user._id;
-            this.event.organizer = this.$store.user.username;
-        },
         getTimes: async function() {
             let result = await fetch('/api/calendar?duration=135');
             result = await result.json();
@@ -79,19 +75,27 @@ export default {
             this.calendarOpenings = timeArray;
         },
         saveEvent: async function () {
-            this.finalizeEvent();
-            this.showEventForm = false;
+            this.flipEventForm();
+            //this.finalizeEvent();
             const response = await fetch('http://localhost:8080/api/v1/events/',
                 {
                     method: 'POST',
-                    body: JSON.stringify(this.event),
+                    body: JSON.stringify(this.event)
                 }
             );
-            return await response.json();
+            this.event = await response.json();
+        },
+        flipEventForm: function () {
+            this.finalizedForm = !this.finalizedForm;
+        },
+        finalizeEvent: function () {
+            console.log("ID: " + (this.$store.user._id));
+            //this.event.organizerId = this.$store.user._id;
+            //this.event.organizer = this.$store.user.username;
         },
         editEvent: function () {
             this.showEventForm = true;
-        }
+        },
     },
 
 };

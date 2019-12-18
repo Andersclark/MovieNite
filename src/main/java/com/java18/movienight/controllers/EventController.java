@@ -17,12 +17,12 @@ public class EventController {
         @Autowired
         EventService eventService;
 
-        @GetMapping("/{id}")
+        @GetMapping("{id}")
         private ResponseEntity findById(@PathVariable String id) {
             Optional<Event> result = eventService.findById(id);
             return result.map(movie -> (new ResponseEntity<>(result.get(), HttpStatus.OK))).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
-    @GetMapping("/user/{organizerId}")
+    @GetMapping("{organizerId}")
     private ResponseEntity findByOrganizerId(@PathVariable String organizerId) {
 
         List<Event> result = eventService.findByOrganizerId(organizerId);
@@ -33,7 +33,7 @@ public class EventController {
             return new ResponseEntity<List<Event>>(result, HttpStatus.OK);
         }
     }
-    @GetMapping("/movieId/{movieId}")
+    @GetMapping("{movieId}")
     private ResponseEntity findByMovieId(@PathVariable String movieId){
             List<Event> result = eventService.findByMovieId(movieId);
             if(result == null || result.size()<1){
@@ -45,12 +45,14 @@ public class EventController {
     }
     @PostMapping
     private ResponseEntity saveEvent(@RequestBody Event event){
+
             Event result = eventService.insertEvent(event);
+
             if(result == null){
                 return new ResponseEntity(HttpStatus.BAD_REQUEST);
             }
             else {
-                return new ResponseEntity<Event>(result, HttpStatus.OK);
+                return new ResponseEntity<>(result, HttpStatus.OK);
             }
     }
 }
