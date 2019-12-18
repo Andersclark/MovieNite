@@ -1,14 +1,13 @@
 package com.java18.movienight.repositories;
 
-import com.java18.movienight.models.Event;
+import com.java18.movienight.models.ReqEvent;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface EventRepo extends MongoRepository<Event, String> {
-    List<Event> findByMovieId(String movieId);
-    List<Event> findByOrganizerId(String _Id);
+public interface EventRepo extends MongoRepository<ReqEvent, String> {
+    List<ReqEvent> findByMovieId(String movieId);
+    List<ReqEvent> findByOrganizerId(String _Id);
 
 
 }

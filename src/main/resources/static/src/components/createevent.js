@@ -5,54 +5,51 @@ export default {
     components: {
         OAuthLogin
     },
-
     template: `
-
     <div class="ten columns createevent" >
         <OAuthLogin/>
         <template v-if="showEventForm" >
             <div v-show="!finalizedForm" class="movie-event-form">
             
-                <h4>New movienight</h4>
+                <h4>New movie knight</h4>
                 <h5>Movie: {{event.movie}}</h5>
                 
-                <input v-model="event.description" type="text" placeholder="description">
-                <input v-model="event.location" type="text" placeholder="location">
+                <div id="event-inputs">
+                    <textarea v-model="event.description" type="text" placeholder="description"></textarea>
+                    <input v-model="event.location" type="text" placeholder="location">
+                </div>
                 
-                <select class="timeList" v-model="event.startTime" name="Calendar openings:">
-                  <option  v-for="time in calendarOpenings">{{time}}</option>
+                <select class="timeList" v-model="event.startTime" name="Calendar-openings:">
+                  <option  v-for="time in calendarOpenings" :key="time" :value="time">{{convertDate(time)}}</option>
                 </select> 
                 
-                <button @click="getTimes">Check calendar openings</button>
                 <button class="button-primary" v-on:click="saveEvent">Save</button>
             </div>
         </template>
         
         <div v-show="finalizedForm" class="eleven columns">
             <h5>{{event.movie}} -night!</h5>
-            <p>Time: {{event.startTime}} - </p>
-            <p>Duration: {{event.duration}}</p>
+            <p>Time: {{convertDate(event.startTime)}}</p>
+            <p>Duration: {{event.duration}} min</p>
             <p>Location: {{event.location}}</p>
             <p>Description: {{event.description}}</p>
-            <ul>Participants: 
-                <li>{{event.organizer}}</li>
-            </ul>
             <button class="button-primary" v-on:click="flipEventForm">Edit</button>
         </div>
-</div>
-`,
+    </div>
+    `,
     data() {
         return {
             finalizedForm: false,
             event: {
                 movieId: this.imdbID,
+                movieURL: location.href,
                 organizerId: 'organizerID',
                 organizer: 'organizer',
                 guestIds: [],
-                duration: this.runtime,
-                startTime: new Date(),
-                description: 'description',
-                location: 'location',
+                duration: this.runtime.replace(" min", ""),
+                startTime: 0,
+                description: '',
+                location: '',
                 movie: this.title,
             },
             calendarOpenings: [],
@@ -62,40 +59,39 @@ export default {
         showEventForm: function () {
             return !this.$store.state.displayLoginButton;
         },
-
+    },
+    mounted() {
+        this.getTimes();
     },
     methods: {
+        convertDate(time) {
+            return new Date(time).toUTCString().replace("GMT", "");
+        },
         getTimes: async function() {
-            let result = await fetch('/api/calendar?duration=135');
-            result = await result.json();
-            let timeArray = [];
-            for (let time of result) {
-                timeArray.push(new Date(time));
-            }
-            this.calendarOpenings = timeArray;
+            let dates = await fetch(`/api/v1/calendar?duration=${this.runtime.replace(" min", "")}`);
+            dates = await dates.json();
+            let today = new Date();
+            this.calendarOpenings = dates.map(date => date - today.getTimezoneOffset() * 60 * 1000)
         },
         saveEvent: async function () {
             this.flipEventForm();
-            //this.finalizeEvent();
-            const response = await fetch('http://localhost:8080/api/v1/events/',
-                {
+            
+            let response = await fetch('/api/v1/events', {
                     method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
                     body: JSON.stringify(this.event)
                 }
             );
-            this.event = await response.json();
+            response = await response.text();
+            console.log(response)
         },
         flipEventForm: function () {
             this.finalizedForm = !this.finalizedForm;
         },
-        finalizeEvent: function () {
-            console.log("ID: " + (this.$store.user._id));
-            //this.event.organizerId = this.$store.user._id;
-            //this.event.organizer = this.$store.user.username;
-        },
         editEvent: function () {
             this.showEventForm = true;
         },
-    },
-
+    }
 };

@@ -238,3 +238,8 @@ a {
 		color: yellow;
 	}
 }
+
+#event-inputs {
+	display: flex;
+	color: black;
+}

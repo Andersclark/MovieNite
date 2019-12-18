@@ -11,7 +11,7 @@ export default {
 
             if (authResult["code"]) {
                 // Send the code to the server
-                let result = await fetch("api/auth/storeauthcode", {
+                let result = await fetch("api/v1/auth/storeauthcode", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/octet-stream; charset=utf-8",
@@ -29,7 +29,7 @@ export default {
                 let user = await fetch("/login", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "Application/json"
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         username: result.email,
