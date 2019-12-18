@@ -1,12 +1,12 @@
 export default {
-    components: {},
     template: `
     <div id="about" class="container">
         <div class="row">
             <div class="ten columns">
+            <h3>JWT, OAuth & HTTPS</h3>
             <p><strong>This page contains basic info about the three web-security technologies: OAuth2, JWT, HTTPS</strong></p>
             <p>Click on the headlines to open their respective section with more information</p>
-                <h3 @click="showJWT = !showJWT" id="json-web-token" class="aboutsectionheader">JSON Web Token<i v-show="!showJWT" class="fas fa-chevron-circle-down"></i><i v-show="showJWT" class="fas fa-chevron-circle-up"></i></h3>
+                <h4 @click="showJWT = !showJWT" id="json-web-token" class="aboutsectionheader">JSON Web Token<i v-show="!showJWT" class="fas fa-chevron-circle-down"></i><i v-show="showJWT" class="fas fa-chevron-circle-up"></i></h4>
                 <div v-show="showJWT">
                   <h5 id="what-is-a-json-web-token-">What is a JSON Web Token?</h5>
                   <p>JWT(JSON Web Token) is a way to transmit data securely by encoding and signing the object digitally. The JWT gets signed with a private key, and can be verified with this. If the data gets tampered before returning to the server, the signature will missmatch and won&#39;t be verified. </p>
@@ -34,7 +34,7 @@ export default {
                   <p><img src="https://cdn.auth0.com/content/jwt/encoded-jwt3.png" alt=""></p>
                   <h6 id="read-more-on-jwts-official-website-https-jwt-io-">Read more on <a href="https://jwt.io/">JWTs official website</a>.</h6>
                 </div>
-                <h3 id="oauth2" @click="showOauth = !showOauth" class="aboutsectionheader">OAuth2<i v-show="!showOauth" class="fas fa-chevron-circle-down"></i><i v-show="showOauth" class="fas fa-chevron-circle-up"></i></h3>
+                <h4 id="oauth2" @click="showOauth = !showOauth" class="aboutsectionheader">OAuth2<i v-show="!showOauth" class="fas fa-chevron-circle-down"></i><i v-show="showOauth" class="fas fa-chevron-circle-up"></i></h4>
                   <div v-show="showOauth">
                     <h5 id="what-is-open-authentication">What is Open Authentication</h5>
                     <p>OAuth 2.0 is one of the most widely used protocols for authorization of access to web services, usually from a provider to a user. It is most widely used in development of different web clients such as apps, devices and webpages.
@@ -47,15 +47,15 @@ export default {
                     <h4 id="what-does-it-look-like">What does it look like?</h4>
                     <p><strong>Example of OAuth 2.0-token:</strong></p>
                     <pre><code>{
-                        &quot;access_token&quot;:&quot;ACCESS_TOKEN&quot;,
-                        &quot;token_type&quot;:&quot;bearer&quot;,
-                        &quot;expires_in&quot;:2592000,
-                        &quot;refresh_token&quot;:&quot;REFRESH_TOKEN&quot;,
-                        &quot;scope&quot;:&quot;read&quot;,
-                        &quot;uid&quot;:100101,
-                        &quot;info&quot;:{&quot;name&quot;:&quot;Mark E. Mark&quot;,
-                                &quot;email&quot;:&quot;mark@thefunkybunch.com&quot;}
-                    }
+&quot;access_token&quot;:&quot;ACCESS_TOKEN&quot;,
+&quot;token_type&quot;:&quot;bearer&quot;,
+&quot;expires_in&quot;:2592000,
+&quot;refresh_token&quot;:&quot;REFRESH_TOKEN&quot;,
+&quot;scope&quot;:&quot;read&quot;,
+&quot;uid&quot;:100101,
+&quot;info&quot;:{&quot;name&quot;:&quot;Mark E. Mark&quot;,
+        &quot;email&quot;:&quot;mark@thefunkybunch.com&quot;}
+}
                     </code></pre>
                     <h6 id="breakdown-of-key-properties">Breakdown of key properties</h6>
                     <p><strong>access_token</strong>: a string which is the true value of the token, but with a limited lifecycle. Is usally the part of the token shared with the client.
@@ -84,7 +84,4 @@ export default {
             showHttps: false,
         }
     },
-
-    methods: {},
-    computed: {}
 }

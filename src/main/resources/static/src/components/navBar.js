@@ -6,7 +6,7 @@ export default {
         </div>
         <ul class="navbar">
             <li class="nightnavlink"><router-link  to="/">HOME</router-link></li>
-            <li class="nightnavlink"><router-link to="/about">ABOUT</router-link></li>
+            <li class="nightnavlink"><router-link to="/about">ABOUT WEB SECURITY</router-link></li>
             <li class="nightnavlink"><router-link to="/apidoc">API</router-link></li>
         </ul>
   </div>`,
