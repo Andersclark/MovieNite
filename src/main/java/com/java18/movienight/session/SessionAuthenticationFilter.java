@@ -22,8 +22,8 @@ public class SessionAuthenticationFilter extends AbstractAuthenticationProcessin
     super(new AntPathRequestMatcher("**"));
   }
 
-  private String authenticateCookieValue(HttpServletResponse response, String cookie) {
-    return JwtTokenProvider.get().validateToken(response, cookie);
+  private String authenticateCookieValue(HttpServletRequest request, HttpServletResponse response, String cookie) {
+    return JwtTokenProvider.get().validateToken(request, response, cookie);
   }
 
   @Override
@@ -65,7 +65,7 @@ public class SessionAuthenticationFilter extends AbstractAuthenticationProcessin
     if (cookie.isPresent()) {
       String cookieVal = cookie.get().getValue();
 
-      cookieVal = authenticateCookieValue(response, cookieVal);
+      cookieVal = authenticateCookieValue(request, response, cookieVal);
       if (!cookieVal.equals("invalid token")) {
         Authentication authentication = new SessionAuthentication(cookieVal);
         authentication.setAuthenticated(true);

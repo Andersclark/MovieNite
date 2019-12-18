@@ -25,12 +25,12 @@ public class SessionAuthentication implements Authentication {
     return org.springframework.security.core.userdetails.User
             .withUsername(email)
             .password(encoder.encode("password"))
-            .roles("USER").build();
+            .roles(JwtTokenProvider.get().getRoles(cookie).toArray(new String[0])).build();
   }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(new SimpleGrantedAuthority("USER"));
+    return userDetails.getAuthorities();
   }
 
   @Override

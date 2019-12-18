@@ -114,7 +114,7 @@ public class User {
 
   @Override
   public String toString() {
-    return String.format("USER \nusername: %s \nemail: %s \npictureUrl: %s \naccessToken: %s \nrefreshToken: %s \ntokenExpires: %d", username, email, pictureUrl, accessToken, refreshToken, tokenExpires);
+    return String.format("USER \nusername: %s \nemail: %s \npictureUrl: %s \naccessToken: %s \nrefreshToken: %s \ntokenExpires: %d \nroles: %s", username, email, pictureUrl, accessToken, refreshToken, tokenExpires, roles);
   }
 }
 

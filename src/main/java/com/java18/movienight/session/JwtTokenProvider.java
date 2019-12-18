@@ -6,6 +6,7 @@ import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -47,7 +48,7 @@ public class JwtTokenProvider {
 
   public String createToken(String email, List<String> roles) {
     Claims claims = Jwts.claims().setSubject(email);
-    claims.put("auth", roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+    claims.put("auth", roles);
 
     Date now = new Date();
     Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -60,13 +61,17 @@ public class JwtTokenProvider {
             .compact();
   }
 
-  public Authentication getAuthentication(String token) {
-    UserDetails details = userDetails.loadUserByUsername(getEmail(token));
-    return new UsernamePasswordAuthenticationToken(details, "password", details.getAuthorities());
-  }
+//  public Authentication getAuthentication(String token) {
+//    UserDetails details = userDetails.loadUserByUsername(getEmail(token));
+//    return new UsernamePasswordAuthenticationToken(details, "password", details.getAuthorities());
+//  }
 
   public String getEmail(String token) {
     return Jwts.parser().setSigningKey(secretKey).setAllowedClockSkewSeconds(10).parseClaimsJws(token).getBody().getSubject();
+  }
+
+  public List<String> getRoles(String token) {
+    return Jwts.parser().setSigningKey(secretKey).setAllowedClockSkewSeconds(10).parseClaimsJws(token).getBody().get("auth", List.class);
   }
 
   public String resolveToken(HttpServletRequest req) {
@@ -77,16 +82,16 @@ public class JwtTokenProvider {
     return null;
   }
 
-  public String validateToken(HttpServletResponse response, String token) {
+  public String validateToken(HttpServletRequest request, HttpServletResponse response, String token) {
     try {
       Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
       return token;
     } catch (JwtException | IllegalArgumentException e) {
-      return refreshToken(response, token);
+      return refreshToken(request, response, token);
     }
   }
 
-  private String refreshToken(HttpServletResponse response, String token) {
+  private String refreshToken(HttpServletRequest request, HttpServletResponse response, String token) {
 
     Claims claims = null;
     try {
@@ -96,6 +101,7 @@ public class JwtTokenProvider {
     }
     // if jwt token expired in last 7 days, renew the token
     if(claims.getExpiration().getTime() + 604800000 > Instant.now().toEpochMilli()) {
+      CookieUtils.removeJWTCookie(request, response);
       String jwtToken = createToken(claims.getSubject(), List.of("USER"));
       CookieUtils.addCookie(response, "JWT_SESSION", jwtToken);
       return jwtToken;

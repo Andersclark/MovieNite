@@ -63,16 +63,14 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
             .authorizeRequests()
+            .antMatchers( "/api/v1/**").hasRole("USER")
             .antMatchers(HttpMethod.GET, "/").permitAll()
             .antMatchers("/login").permitAll()
-            .antMatchers("/api/auth/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/users/*").hasRole("USER")
-            .antMatchers(HttpMethod.GET, "/rest/**", "/api/**").permitAll()
-            .antMatchers("/rest/**", "/api/**").hasRole("USER")
-            .antMatchers("/rest/**", "/api/**").hasRole("ADMIN")
+            .antMatchers("/api/v1/auth/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/**").permitAll()
+            .antMatchers( "/api/**").hasRole("USER")
+            .antMatchers("/api/**").hasRole("ADMIN")
             .and()
             .addFilterBefore(
                     sessionAuthenticationFilter(),
