@@ -27,19 +27,14 @@ public class GoogleCalendarService {
   @Autowired
   UserRepo userRepo;
 
+  @SuppressWarnings("deprecation")
   public List<Long> getEvents(int duration) {
     List<User> allUsers = userRepo.findAll();
     List<CalendarEvent> allEvents = new ArrayList<>();
 
-    System.out.println("Movie duration: " + duration);
-
     for (User user : allUsers) {
       GoogleCredential credential = oAuthService.getRefreshedCredentials(user.getRefreshToken());
-      final long NOW = Instant.now().toEpochMilli();
-      // refresh access token if it expires within 30 second
-      if (user.getTokenExpires() + 1800000 < NOW) {
-        oAuthService.refreshAccessToken(user, credential.getAccessToken());
-      }
+      oAuthService.refreshAccessToken(user);
 
       Calendar calendar =
               new Calendar.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential)
@@ -73,8 +68,6 @@ public class GoogleCalendarService {
           if (end == null) { // If it's an all-day-event - store the date instead
             end = event.getStart().getDate();
           }
-//          Debugging
-//          System.out.printf("%s (%s) -> (%s)\n", event.getSummary(), start, end);
           allEvents.add(new CalendarEvent(start.getValue(), end.getValue()));
         }
       }
@@ -122,45 +115,3 @@ public class GoogleCalendarService {
     return responseEvents;
   }
 }
-
-
-
-/* APPROXIMATION OF GOOGLE CALENDAR EVENT
-  ... containing the fields matching our product:
-{
-  "kind": "calendar#event",
-  "description": string,
-  "location": string,
-  "creator": {
-    "id": string,
-    "email": string,
-    "displayName": string,
-    "self": boolean
-  },
-
-  "start": {
-    "date": date,
-    "dateTime": datetime,
-    "timeZone": string
-  },
-  "end": {
-    "date": date,
-    "dateTime": datetime,
-    "timeZone": string
-  },
-  "attendees": [
-    {
-      "id": string,
-      "email": string,
-      "displayName": string,
-      "organizer": boolean,
-      "self": boolean,
-      "resource": boolean,
-      "optional": boolean,
-      "responseStatus": string,
-      "comment": string,
-      "additionalGuests": integer
-    }
-  ]
-}
-*/

@@ -33,11 +33,16 @@ public class OAuthService {
     }
   }
 
-  public void refreshAccessToken(User user, String accessToken) {
-    long now = Instant.now().toEpochMilli();
-    user.setAccessToken(accessToken);
-    user.setTokenExpires(now);
-    userService.updateUser(user);
+  public void refreshAccessToken(User user) {
+    GoogleCredential credential = getRefreshedCredentials(user.getRefreshToken());
+    final long NOW = Instant.now().toEpochMilli();
+    // refresh access token if it expires within 30 second
+    if (user.getTokenExpires() + 1800000 < NOW) {
+      long now = Instant.now().toEpochMilli();
+      user.setAccessToken(credential.getAccessToken());
+      user.setTokenExpires(now);
+      userService.updateUser(user);
+    }
   }
 
   public User authorizeWithGoogle(String code) {
@@ -75,7 +80,7 @@ public class OAuthService {
     String name = (String) payload.get("name");
     String pictureUrl = (String) payload.get("picture");
 
-    User user = new User(ObjectId.get(), userId, name, email, pictureUrl, accessToken, refreshToken, expiresAt);
+    User user = new User(ObjectId.get(), userId, name, email, pictureUrl, accessToken, refreshToken, expiresAt, "USER");
     User dbUser = userService.findByEmail(email);
     System.out.println(dbUser);
     if (dbUser == null) {
