@@ -1,17 +1,15 @@
 import movieList from "../components/movieList.js";
 import searchField from '../components/searchField.js';
-import OAuthLogin from '../components/OAuthLogin.js';
 
 export default {
-  components: {
-    movieList,
-    searchField,
-    OAuthLogin
-  },
+    components: {
+        movieList,
+        searchField,
+    },
 
-  template: `
+    template: `
     <div class="container">
-            <OAuthLogin/>
+            
             <searchField />
             <movieList />
     </div>

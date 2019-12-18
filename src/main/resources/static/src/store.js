@@ -1,7 +1,7 @@
 export const store = new Vuex.Store({
   state: {
     user: null,
-    displayLoginButton: false,
+    displayLoginButton: true,
     isSideBarOpen: false,
     searchResults: {},
     totalResults: 0,

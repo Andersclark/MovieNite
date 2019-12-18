@@ -145,18 +145,25 @@ a {
 	font-weight: bolder;
 	margin-bottom: 0;
 }
-
+.createevent {
+	padding: 15%;
+}
 .movie-event{
 	padding: 15%;
 	min-height: 100vh;
 	background: #333333;
 }
-
-.movie-event-form {
-
-}
 .movie-event-form input{
     color: #000000;
+	background-color: #FFFFFF;
+}
+.timeList{
+	color: #000000;
+	background-color: #FFFFFF;
+}
+.timeList>option{
+	color: #000000;
+	background-color: #FFFFFF;
 }
 
 

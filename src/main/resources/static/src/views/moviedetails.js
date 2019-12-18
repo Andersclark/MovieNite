@@ -18,36 +18,37 @@ export default {
                     <li><strong>Directed by:</strong> {{movie.Director}}</li>
                     <li><strong>Actors: </strong>{{movie.Actors}}</li>
                 </ul>
-                <button v-on:click="createEvent" class="button-primary">Make a movie night</button>
-    
                 <h5 class="moviedetails-plotheader">Plot</h5>
                 <p>{{movie.Plot}}</p>
+                 <button v-if="!showEvent" v-on:click="createEvent" class="button-primary">Make a movie night</button>
             </div>
         </div>
         <div class="row">
-         <createevent v-if="showEvent" :imdbID="movie.imdbID"/>
+         <createevent v-if="showEvent" :imdbID="movie.imdbID" :title="movie.Title" :runtime="movie.Runtime"   />
         </div>
     </div>
   `,
-    data(){
+    data() {
         return {
-            movie: { },
+            movie: {},
             showEvent: false,
         }
     },
     computed: {
-      posterUrl: function() { return this.movie.Poster && this.movie.Poster.replace(/@.*$/, "@.jpg"); }
+        posterUrl: function () {
+            return this.movie.Poster && this.movie.Poster.replace(/@.*$/, "@.jpg");
+        }
     },
     methods: {
         getMovie: async function () {
-            const response = await fetch('http://localhost:8080/api/v1/movies/' +  this.$route.params.id );
+            const response = await fetch('http://localhost:8080/api/v1/movies/' + this.$route.params.id);
             this.movie = await response.json();
         },
-        createEvent: function(){
+        createEvent: function () {
             this.showEvent = true;
         }
     },
-    created: function() {
+    created: function () {
         this.getMovie();
-        }
+    }
 }
