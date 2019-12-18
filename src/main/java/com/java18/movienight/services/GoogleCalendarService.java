@@ -122,3 +122,45 @@ public class GoogleCalendarService {
     return responseEvents;
   }
 }
+
+
+
+/* APPROXIMATION OF GOOGLE CALENDAR EVENT
+  ... containing the fields matching our product:
+{
+  "kind": "calendar#event",
+  "description": string,
+  "location": string,
+  "creator": {
+    "id": string,
+    "email": string,
+    "displayName": string,
+    "self": boolean
+  },
+
+  "start": {
+    "date": date,
+    "dateTime": datetime,
+    "timeZone": string
+  },
+  "end": {
+    "date": date,
+    "dateTime": datetime,
+    "timeZone": string
+  },
+  "attendees": [
+    {
+      "id": string,
+      "email": string,
+      "displayName": string,
+      "organizer": boolean,
+      "self": boolean,
+      "resource": boolean,
+      "optional": boolean,
+      "responseStatus": string,
+      "comment": string,
+      "additionalGuests": integer
+    }
+  ]
+}
+*/
