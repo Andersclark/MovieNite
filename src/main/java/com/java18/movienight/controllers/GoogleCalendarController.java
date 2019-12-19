@@ -1,5 +1,7 @@
 package com.java18.movienight.controllers;
 
+import com.java18.movienight.entities.RequestLog;
+import com.java18.movienight.repositories.RequestLogRepo;
 import com.java18.movienight.services.GoogleCalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -16,9 +18,15 @@ import java.util.List;
 public class GoogleCalendarController {
   @Autowired
   GoogleCalendarService googleCalendarService;
+  @Autowired
+  RequestLogRepo logRepo;
 
   @GetMapping
   public ResponseEntity<List<Long>> loadEvents(@Param("duration") int duration) {
+    RequestLog log = new RequestLog("/api/calendar/", "GET");
+    log.statusCode = "200";
+    log.requestBody = duration.toString();
+    logRepo.save(log);
     return new ResponseEntity<>(googleCalendarService.getEvents(duration), HttpStatus.OK);
   }
 
