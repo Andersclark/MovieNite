@@ -72,6 +72,8 @@ export default {
             dates = await dates.json();
             let today = new Date();
             this.calendarOpenings = dates.map(date => date - today.getTimezoneOffset() * 60 * 1000)
+            console.log(this.calendarOpenings);
+            
         },
         saveEvent: async function () {
             this.flipEventForm();

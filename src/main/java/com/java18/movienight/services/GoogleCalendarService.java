@@ -11,14 +11,13 @@ import com.java18.movienight.entities.User;
 import com.java18.movienight.models.CalendarEvent;
 import com.java18.movienight.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GoogleCalendarService {
@@ -33,6 +32,8 @@ public class GoogleCalendarService {
     List<CalendarEvent> allEvents = new ArrayList<>();
 
     for (User user : allUsers) {
+      if(!user.getEmail().equals(SecurityContextHolder.getContext().getAuthentication().getName())) continue;
+
       GoogleCredential credential = oAuthService.getRefreshedCredentials(user.getRefreshToken());
       oAuthService.refreshAccessToken(user);
 
@@ -42,11 +43,13 @@ public class GoogleCalendarService {
                       .build();
 
       DateTime now = new DateTime(System.currentTimeMillis());
+      DateTime max = new DateTime(now.getValue() + 1000 * 60 * 60 * 24 * 14); // 14 days
       Events events = null;
       try {
         events = calendar.events().list("primary")
-                .setMaxResults(20)
+//                .setMaxResults(20)
                 .setTimeMin(now)
+                .setTimeMax(max)
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
                 .execute();
@@ -72,32 +75,33 @@ public class GoogleCalendarService {
         }
       }
     }
-   return filterEvents(duration, allEvents);
+    return filterEvents(duration, allEvents);
   }
 
   private List<Long> filterEvents(int duration, List<CalendarEvent> allEvents) {
     List<Long> responseEvents = new ArrayList<>();
     long movieLength = duration * 60000;
     LocalDateTime today = LocalDateTime.now();
+    ZonedDateTime now = ZonedDateTime.of(today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 15, 0, 0, 0, ZoneId.systemDefault());
 
     // loop 14 days, 7 hours a day
     for (int day = 0; day < 14; day++) {
-      for (int hour = 16; hour < 24; hour++) {
-        LocalDateTime now = LocalDateTime.of(LocalDate.of(
-                today.getYear(),
-                today.getMonth(),
-                today.getDayOfMonth() + day
-        ), LocalTime.of(hour, 0));
+      ZonedDateTime dayTime = now.plusDays(day);
 
-        long movieStart = Timestamp.valueOf(now).getTime();
+      List<CalendarEvent> todaysEvents = new ArrayList<>();
+
+      for (CalendarEvent event : allEvents) {
+        if (LocalDateTime.ofInstant(Instant.ofEpochMilli(event.start),
+                ZoneId.systemDefault()).getDayOfYear() == dayTime.getDayOfYear()) {
+          todaysEvents.add(event);
+        }
+      }
+
+      for (int hour = 0; hour < 9; hour++) {
+        long movieStart = dayTime.plusHours(hour).toEpochSecond() * 1000;
         long movieEnd = movieStart + movieLength;
 
-        List<CalendarEvent> todaysEvents = allEvents.stream()
-                .filter(event -> LocalDateTime.ofInstant(Instant.ofEpochMilli(event.start),
-                        ZoneId.systemDefault()).getDayOfYear() == now.getDayOfYear())
-                .collect(Collectors.toList());
-
-        long eventsStart = 0, eventsEnd = 0;
+        long eventsStart = Long.MAX_VALUE, eventsEnd = 0;
         // collect all events that day
         // to minimum start time and maximum end time
         for (CalendarEvent event : todaysEvents) {
