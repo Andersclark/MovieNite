@@ -32,8 +32,6 @@ public class GoogleCalendarService {
     List<CalendarEvent> allEvents = new ArrayList<>();
 
     for (User user : allUsers) {
-      if(!user.getEmail().equals(SecurityContextHolder.getContext().getAuthentication().getName())) continue;
-
       GoogleCredential credential = oAuthService.getRefreshedCredentials(user.getRefreshToken());
       oAuthService.refreshAccessToken(user);
 
@@ -47,7 +45,6 @@ public class GoogleCalendarService {
       Events events = null;
       try {
         events = calendar.events().list("primary")
-//                .setMaxResults(20)
                 .setTimeMin(now)
                 .setTimeMax(max)
                 .setOrderBy("startTime")

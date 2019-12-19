@@ -7,7 +7,7 @@ export default {
             this.$auth2.grantOfflineAccess().then(this.signInCallback);
         },
         async signInCallback(authResult) {
-            console.log("authResult", authResult);
+            // console.log("authResult", authResult);
 
             if (authResult["code"]) {
                 // Send the code to the server
@@ -22,7 +22,7 @@ export default {
 
                 result = await result.json();
 
-                console.log("/storeauthcode:", result);
+                // console.log("/storeauthcode:", result);
 
                 if (result.error) return;
 
@@ -40,7 +40,7 @@ export default {
                 user = await user.json();
 
                 if (user.email) {
-                    console.log(user);
+                    // console.log(user);
                     this.$store.commit('setUser', user);
                     this.$store.commit('setDisplayLoginButton', false)
                 }

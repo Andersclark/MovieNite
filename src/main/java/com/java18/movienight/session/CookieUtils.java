@@ -25,7 +25,9 @@ public class CookieUtils {
    * Creates a custom cookie
    */
   public static void addCookie(HttpServletResponse response, String name, String value) {
-    response.addCookie(new Cookie(name, value));
+    Cookie cookie = new Cookie(name, value);
+    cookie.setHttpOnly(true);
+    response.addCookie(cookie);
   }
 
   /**

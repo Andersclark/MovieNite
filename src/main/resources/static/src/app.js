@@ -21,8 +21,6 @@ export default {
     let user = await fetch('api/v1/auth/whoami')
     user = await user.json();
 
-    console.log('/whoami', user);
-
     user.email && this.$store.commit('setUser', user);
     user.error && this.$store.commit('setDisplayLoginButton', true)
   }

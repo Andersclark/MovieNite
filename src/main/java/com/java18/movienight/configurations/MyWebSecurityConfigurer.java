@@ -64,11 +64,12 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
             .authorizeRequests()
+            .antMatchers("/api/v1/auth/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/**").permitAll()
             .antMatchers( "/api/v1/**").hasRole("USER")
             .antMatchers(HttpMethod.GET, "/").permitAll()
             .antMatchers("/login").permitAll()
             .antMatchers("/api/v1/auth/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/**").permitAll()
             .antMatchers( "/api/**").hasRole("USER")
             .antMatchers("/api/**").hasRole("ADMIN")
             .and()
@@ -154,7 +155,7 @@ public class MyWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
           HttpServletResponse response,
           Authentication authentication) throws IOException {
 
-    CookieUtils.removeCookie(request, response, "OAuthCake");
+    CookieUtils.removeJWTCookie(request, response);
     response.setStatus(HttpStatus.OK.value());
     objectMapper.writeValue(response.getWriter(), "Bye!");
   }
